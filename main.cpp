@@ -76,6 +76,7 @@ void init(void)
 
 void display(void)
 {
+	//glClearColor(1.0, 0.4, 0.0, 0.0); //background color (default is black)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     // clear the window
 
 	_world->draw();

@@ -47,18 +47,9 @@ void World::draw()
 	_spaceship.draw(_projection, _lightPos, _lightColor);
 	_static->draw(_projection, _lightPos, _lightColor);
 
-
-	GLfloat x, y, ystep, yild;
-	glColor4f(0.0, 1.0, 0.0, 0.0);
-	x = -225.0;
-	y = 70.0;
-	ystep = 100.0;
-	yild = 20.0;
-	char* s = "My text";
-	
-	glRasterPos2f(-150, y + 1.25*yild);
-	print_bitmap_string(GLUT_BITMAP_9_BY_15, "GLUT_BITMAP_9_BY_15");
-	glRasterPos2f(x, y);
+	GLfloat x, y, yild;
+	char* s = "LIVES: 10";	
+	glRasterPos2f(-0.9, 0.9);
 	print_bitmap_string(GLUT_BITMAP_9_BY_15, s);
 }
 
