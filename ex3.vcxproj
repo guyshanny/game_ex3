@@ -162,9 +162,7 @@
     <None Include="meshes\tie_fighter.off" />
     <None Include="packages.config" />
     <None Include="shaders\phong.frag" />
-    <None Include="shaders\phong.vert" />
-    <None Include="shaders\phongV3.3.frag" />
-    <None Include="shaders\phong_teapotV3.3.vert" />
+    <None Include="shaders\phong_spaceship.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bimage.cpp" />

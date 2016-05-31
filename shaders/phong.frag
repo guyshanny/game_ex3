@@ -5,6 +5,7 @@ in vec3 PositionWorldPass;
 in vec3 NormalViewPass;
 in vec3 EyeDirectionViewPass;
 in vec3 LightDirectionViewPass;
+in vec3 LightPositionViewPass;
 in vec2 TexCoordPass;
 // Ouput data
 out vec3 outColor;
@@ -15,19 +16,16 @@ uniform vec4 gMaterialColor;
 uniform mat4 gView;
 uniform mat4 gModel;
 uniform vec4 gLightPosition; // light (in world)
+uniform vec4 gLightColor;
 
 void main()
 {
-	// Light emission properties
-	// You probably want to put them as uniforms
-	vec3 LightColor = vec3(1,1,1);
+	vec3 LightColor = gLightColor.rgb;
 	
 	// Material properties
-	vec3 MaterialDiffuseColor = texture2D(gTextureSampler, TexCoordPass).rgb * gMaterialColor.xyz;
-	//vec3 MaterialDiffuseColor = gMaterialColor.xyz;
-	//vec3 MaterialDiffuseColor = gMaterialColor.xyz;
-	vec3 MaterialAmbientColor = vec3(0.1,0.1,0.1) * MaterialDiffuseColor;
-	vec3 MaterialSpecularColor = vec3(1.0,1.0,1.0);
+	vec3 materialDiffuseColor = texture2D(gTextureSampler, TexCoordPass).rgb * gMaterialColor.xyz;
+	vec3 materialAmbientColor = vec3(0.1,0.1,0.1) * materialDiffuseColor;
+	vec3 materialSpecularColor = vec3(1.0,1.0,1.0);
 
 	// Normal of the computed fragment, in camera space
 	vec3 N = normalize(NormalViewPass);
@@ -49,12 +47,16 @@ void main()
 	//  - Looking into the reflection -> 1
 	//  - Looking elsewhere -> < 1
 	float cosAlpha = clamp(dot(V,R), 0, 1);
+
+	float gLightAttenuation = 0.0005; //should be uniform
+	vec3 temp = LightPositionViewPass - PositionWorldPass;
+	//attenuation by distance of fragment from light:
+	float attenuation = 1.0 / (1.0 + gLightAttenuation * pow(length(temp), 2));
 	
-	outColor = 
-		// Ambient : simulates indirect lighting
-		MaterialAmbientColor +
-		// Diffuse : "color" of the object
-		MaterialDiffuseColor * LightColor * cosTheta +
-		// Specular : reflective highlight, like a mirror
-		MaterialSpecularColor * LightColor *pow(cosAlpha,5);
+	outColor = vec3(0, 0, 0);
+	outColor += materialDiffuseColor * LightColor * cosTheta;			// Diffuse : "color" of the object
+	outColor += materialSpecularColor * LightColor *pow(cosAlpha,5);	// Specular : reflective highlight, like a mirror
+	outColor *= attenuation;
+	outColor += materialAmbientColor;									// Ambient : simulates indirect lighting
+		
 }
