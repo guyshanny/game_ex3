@@ -24,20 +24,21 @@ void Wall::init()
 	glm::vec3 norm = -cross(normalize(tmp1), normalize(tmp2));
 
 	// Create vertices
+	glm::vec4 pos(_position, 1);
 	//lower left corner
-	_vertices.push_back(glm::vec4(-_width / 2, -_height / 2, _position.z, 1));
+	_vertices.push_back(pos + glm::vec4(-_width / 2, -_height / 2, 0, 0));
 	_vertices.push_back(glm::vec4(norm, 0));
 	_vertices.push_back(glm::vec4(0, 1, 0, 0));
 	//upper left corner
-	_vertices.push_back(glm::vec4(-_width / 2, _height / 2, _position.z, 1));
+	_vertices.push_back(pos + glm::vec4(-_width / 2, _height / 2, 0, 0));
 	_vertices.push_back(glm::vec4(norm, 0));
 	_vertices.push_back(glm::vec4(0, 0, 0, 0));
 	//lower right corner
-	_vertices.push_back(glm::vec4(_width / 2, -_height / 2, _position.z, 1));
+	_vertices.push_back(pos + glm::vec4(_width / 2, -_height / 2, 0, 0));
 	_vertices.push_back(glm::vec4(norm, 0));
 	_vertices.push_back(glm::vec4(1, 1, 0, 0));
 	//upper right corner
-	_vertices.push_back(glm::vec4(_width / 2, _height / 2, _position.z, 1));
+	_vertices.push_back(pos + glm::vec4(_width / 2, _height / 2, 0, 0));
 	_vertices.push_back(glm::vec4(norm, 0));
 	_vertices.push_back(glm::vec4(1, 0, 0, 0));
 
@@ -87,11 +88,6 @@ void Wall::init()
 		// Unbind vertex array:
 		glBindVertexArray(0);
 	}
-
-	if (0 < _textureImg.size())
-	{
-		_textureID = initTexture(_textureImg.c_str());
-	}
 }
 
 void Wall::flickerLight(const bool & mode)
@@ -129,16 +125,16 @@ void Wall::draw(const glm::mat4 & projection, glm::vec3 lightPos, glm::vec4 ligh
 		setWorldUniforms(_camera->getPosition(), lightPos, lightColor);
 
 		// Get a handle for our "gMaterialColor" uniform
- 		GLuint materialID = glGetUniformLocation(_programID, MATERIAL_COLOR);
+ 		GLuint materialID = getUniformLocation(MATERIAL_COLOR);
  		glUniform4f(materialID, _color.r, _color.g, _color.b, _color.a);
 
-		glUniform1i(glGetUniformLocation(_programID, TEXTURE_SAMPLER), 0);
+		glUniform1i(getUniformLocation(TEXTURE_SAMPLER), 0);
  		glActiveTexture(GL_TEXTURE0);
  		glBindTexture(GL_TEXTURE_2D, _textureID);
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glBindVertexArray(_vao);
-		//glUniform1i(glGetUniformLocation(_programID, "isTeapot"), false);
+
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, _vertices.size());
 		glBindVertexArray(0);
 	}

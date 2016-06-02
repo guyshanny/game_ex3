@@ -67,6 +67,8 @@ void init(void)
 {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+	glFrontFace(GL_CW);
+	glDisable(GL_CULL_FACE);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 
 	// Creating the world

@@ -24,7 +24,6 @@ protected:
 	void calculate_vertex_normal(const Mesh::VertexHandle &vHandle, const Mesh::FaceHandle &fHandle);
 
 public:
-
 	OpenMeshObject(const char* vShaderFile,
 		const char* fShaderFile,
 		const glm::vec3 & position,

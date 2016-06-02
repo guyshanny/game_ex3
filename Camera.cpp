@@ -47,8 +47,6 @@ void Camera::_turnUpLogic()
 	_direction = glm::vec3(rotation*glm::vec4(_direction, 1));
 	_up = glm::vec3(rotation*glm::vec4(_up, 1));
 	_calculateViewMatrix();
-
-	std::cout << "turning up" << std::endl;
 }
 
 void Camera::_turnDownLogic()
@@ -60,8 +58,6 @@ void Camera::_turnDownLogic()
 	_direction = glm::vec3(rotation*glm::vec4(_direction, 1));
 	_up = glm::vec3(rotation*glm::vec4(_up, 1));
 	_calculateViewMatrix();
-
-	std::cout << "turning down" << std::endl;
 }
 
 void Camera::_turnRightLogic()
@@ -72,7 +68,6 @@ void Camera::_turnRightLogic()
 	_direction = glm::vec3(rotation*glm::vec4(_direction, 1));
 
 	_calculateViewMatrix();
-	std::cout << "turning right" << std::endl;
 }
 
 void Camera::_turnLeftLogic()
@@ -83,7 +78,6 @@ void Camera::_turnLeftLogic()
 	_direction = glm::vec3(rotation*glm::vec4(_direction, 1));
 
 	_calculateViewMatrix();
-	std::cout << "turning left" << std::endl;
 }
 
 void Camera::_moveForwordLogic()

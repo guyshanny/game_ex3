@@ -37,6 +37,18 @@
     <None Include="shaders\phong_spaceship.vert">
       <Filter>shaders</Filter>
     </None>
+    <None Include="shaders\billboard.fs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\billboard.gs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\billboard.vs">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\phong_wall.vert">
+      <Filter>shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -64,6 +76,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Wall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadedObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Billboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Asteroids.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,12 +116,30 @@
     <ClInclude Include="Wall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ShadedObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Billboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Asteroids.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\teapot.jpg">
       <Filter>textures</Filter>
     </Image>
     <Image Include="textures\marble.bmp">
+      <Filter>textures</Filter>
+    </Image>
+    <Image Include="textures\asteroid-icon.png">
+      <Filter>textures</Filter>
+    </Image>
+    <Image Include="textures\Astro_Asteroid_medium.png">
+      <Filter>textures</Filter>
+    </Image>
+    <Image Include="textures\wall.bmp">
       <Filter>textures</Filter>
     </Image>
   </ItemGroup>

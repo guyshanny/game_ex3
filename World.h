@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "Object.h"
 #include "SpaceShip.h"
+#include "Asteroids.h"
 
 class World
 {
@@ -32,6 +33,7 @@ private:
 
 	Object* _static;
 	SpaceShip _spaceship;
+	Asteroids _asteroids;
 	Camera* _camera;
 	// View port frame:
 	float _width, _height, _offsetX, _offsetY;

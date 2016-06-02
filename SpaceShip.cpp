@@ -30,10 +30,10 @@ void SpaceShip::draw(const glm::mat4 & projection, glm::vec3 lightPos, glm::vec4
 		glBindVertexArray(_vao);
 
 		// Get a handle for our "gMaterialColor" uniform
-		GLuint materialID = glGetUniformLocation(_programID, MATERIAL_COLOR);
+		GLuint materialID = getUniformLocation(MATERIAL_COLOR);
 		glUniform4f(materialID, _color.r, _color.g, _color.b, _color.a);
 
-		GLuint textureSamplerID = glGetUniformLocation(_programID, TEXTURE_SAMPLER);
+		GLuint textureSamplerID = getUniformLocation(TEXTURE_SAMPLER);
 		glUniform1i(textureSamplerID, 0);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, _textureID);
@@ -90,11 +90,6 @@ void SpaceShip::init()
 			// Unbind vertex array:
 			glBindVertexArray(0);
 		}
-	}
-
-	if (0 < _textureImg.size())
-	{
-		_textureID = initTexture(_textureImg.c_str());
 	}
 }
 

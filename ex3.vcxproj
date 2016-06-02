@@ -161,34 +161,47 @@
     <None Include="meshes\bunny_1k.off" />
     <None Include="meshes\tie_fighter.off" />
     <None Include="packages.config" />
+    <None Include="shaders\billboard.fs" />
+    <None Include="shaders\billboard.gs" />
+    <None Include="shaders\billboard.vs" />
     <None Include="shaders\phong.frag" />
     <None Include="shaders\phong_spaceship.vert" />
+    <None Include="shaders\phong_wall.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Asteroids.cpp" />
+    <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="bimage.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="OpenMeshObject.cpp" />
+    <ClCompile Include="ShadedObject.cpp" />
     <ClCompile Include="SpaceShip.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Asteroids.h" />
+    <ClInclude Include="Billboard.h" />
     <ClInclude Include="bimage.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="OpenMeshObject.h" />
+    <ClInclude Include="ShadedObject.h" />
     <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="textures\asteroid-icon.png" />
+    <Image Include="textures\Astro_Asteroid_medium.png" />
     <Image Include="textures\marble.bmp" />
     <Image Include="textures\teapot.jpg" />
+    <Image Include="textures\wall.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,11 +5,11 @@
 #include <vector>
 #include "Sphere.h"
 #include "Camera.h"
+#include "ShadedObject.h"
 
-#define TEXTURE_SAMPLER "gTextureSampler"
 #define MATERIAL_COLOR "gMaterialColor"
 
-class Object
+class Object : public ShadedObject
 {
 public:
 	Object(const char* vShaderFile,
@@ -25,14 +25,17 @@ public:
 
 	// Draws the object
 	virtual void init() {
-		_programID = initShader(_vShaderFile, _fShaderFile);
+		ShadedObject::init();
+		addShader(GL_VERTEX_SHADER, _vShaderFile);
+		addShader(GL_FRAGMENT_SHADER, _fShaderFile);
+		finalize();
+
 		calcBoundingSphere();
 	}
 
 	glm::mat4 getModel() { return _model; }
 
 protected:
-	GLuint _programID;
 	glm::vec3 _position;
 	glm::vec4 _color;
 	Camera* _camera;
@@ -41,10 +44,7 @@ protected:
 	const char* _vShaderFile;
 	const char* _fShaderFile;
 	// MVP
-	glm::mat4 _model;
-	// Object's properties
-	GLuint _textureID;
-	const std::string _textureImg;
+	glm::mat4 _model;	
 
 	std::vector<glm::vec4> _vertices;
 	Sphere* _boundingSphere;
@@ -53,7 +53,5 @@ protected:
 	void setWorldUniforms(const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor);
 	void calcBoundingSphere();
 	glm::vec3 calculateCenter();
-	static GLuint initTexture(const char* fName);
-	static GLuint initShader(const char* vShaderFile, const char* fShaderFile);
 };
 
