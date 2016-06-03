@@ -5,9 +5,8 @@
 
 Object::Object(const char* vShaderFile, const char* fShaderFile,
 	const glm::vec3 & position, const glm::vec4 & color, const char* textureIMG) :
-	ShadedObject(textureIMG),  _vShaderFile(vShaderFile), _fShaderFile(fShaderFile), _position(position), _color(color)
+	ShadedObject(textureIMG), _vShaderFile(vShaderFile), _fShaderFile(fShaderFile), _position(position), _color(color)
 {
-	_camera = Camera::instance();
 }
 
 void Object::_useMVP(const glm::mat4 & projection, const glm::mat4 & view)

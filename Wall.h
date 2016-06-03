@@ -22,7 +22,7 @@ public:
 		 const float& height,
 		 const char* textureIMG);
 
-	void draw(const glm::mat4 & projection, glm::vec3 lightPos, glm::vec4 lightColor);
+	void draw(const glm::mat4 & projection, const glm::mat4& view, const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor);
 	void update();
 	void init();
 

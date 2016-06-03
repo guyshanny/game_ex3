@@ -4,7 +4,6 @@
 #include <GL/glew.h> //GLuint
 #include <vector>
 #include "Sphere.h"
-#include "Camera.h"
 #include "ShadedObject.h"
 
 #define MATERIAL_COLOR "gMaterialColor"
@@ -21,7 +20,7 @@ public:
 
 	// Updates the object's params if needed (does in each render frame)
 	virtual void update() = 0;
-	virtual void draw(const glm::mat4& projection, glm::vec3 lightPos, glm::vec4 lightColor) = 0;
+	virtual void draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor) = 0;
 
 	// Draws the object
 	virtual void init() {
@@ -38,7 +37,6 @@ public:
 protected:
 	glm::vec3 _position;
 	glm::vec4 _color;
-	Camera* _camera;
 	// Shaders' stuff
 	GLuint _vao, _vbo, _ebo;
 	const char* _vShaderFile;

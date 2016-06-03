@@ -2,7 +2,6 @@
 
 #include <glm\glm.hpp>
 #include <vector>
-#include "Camera.h"
 #include "Object.h"
 #include "SpaceShip.h"
 #include "Asteroids.h"
@@ -27,15 +26,18 @@ private:
 	// MVP matrices
 	glm::mat4 _projection;
 
+	const glm::vec3 _camOffset;
+
 	//Light properties
-	glm::vec3 _lightPos;
 	glm::vec4 _lightColor;
 
 	Object* _static;
 	SpaceShip _spaceship;
 	Asteroids _asteroids;
-	Camera* _camera;
 	// View port frame:
 	float _width, _height, _offsetX, _offsetY;
+	
+	glm::mat4 getViewMat();
+	glm::vec3 getCamPos();
 };
 

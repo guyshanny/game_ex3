@@ -5,17 +5,14 @@
 Camera* Camera::_instance = nullptr;
 
 Camera::Camera() : _direction(0, 0, -30), _position(0, 0, 0), _up(0, 1, 0) {
-	for (int comm = 0; comm != NUM_OF_COMMANDS; comm++) {
-		Commands command = static_cast<Commands>(comm);
-		_commands[command] = false;
-	}
+	
 }
 
 Camera::~Camera()
 {
 }
 
-void Camera::init()
+void Camera::init(glm::vec3 relPos)
 {
 	_calculateViewMatrix();
 }

@@ -172,7 +172,6 @@
     <ClCompile Include="Asteroids.cpp" />
     <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="bimage.cpp" />
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="OpenMeshObject.cpp" />
@@ -186,7 +185,6 @@
     <ClInclude Include="Asteroids.h" />
     <ClInclude Include="Billboard.h" />
     <ClInclude Include="bimage.h" />
-    <ClInclude Include="Camera.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="OpenMeshObject.h" />

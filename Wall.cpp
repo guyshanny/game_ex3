@@ -117,12 +117,12 @@ void Wall::_flickerLight(const bool & mode)
 	}
 }
 
-void Wall::draw(const glm::mat4 & projection, glm::vec3 lightPos, glm::vec4 lightColor)
+void Wall::draw(const glm::mat4 & projection, const glm::mat4& view, const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor)
 {
 	BEGIN_OPENGL;
 	{
-		_useMVP(projection, _camera->getViewMatrix()); 
-		setWorldUniforms(_camera->getPosition(), lightPos, lightColor);
+		_useMVP(projection, view);
+		setWorldUniforms(camPos, lightPos, lightColor);
 
 		// Get a handle for our "gMaterialColor" uniform
  		GLuint materialID = getUniformLocation(MATERIAL_COLOR);
