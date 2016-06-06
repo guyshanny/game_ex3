@@ -8,7 +8,7 @@ public:
 	Asteroids(const char* textureIMG);
 	~Asteroids();
 	void init();
-	void render(const glm::mat4& VP, const glm::vec3& CameraPos, const glm::vec3& cameraPos);
+	void render(const glm::mat4& projection, const glm::mat4& view, const glm::vec3& cameraPos, const glm::vec3& cameraUp);
 
 private:
 	void createPositionBuffer();
