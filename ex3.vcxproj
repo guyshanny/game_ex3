@@ -195,6 +195,7 @@
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="textures\2.png" />
     <Image Include="textures\asteroid-icon.png" />
     <Image Include="textures\Astro_Asteroid_medium.png" />
     <Image Include="textures\marble.bmp" />

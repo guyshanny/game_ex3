@@ -34,7 +34,7 @@ void main()
 	EyeDirectionViewPass = gEyePosition - PositionView;
 	
 	// Vector that goes from the vertex to the light, in camera space.
-	LightPositionViewPass = (gView * gModel  * gLightPosition).xyz;
+	LightPositionViewPass = (gView * gModel * gLightPosition).xyz;
 	LightDirectionViewPass = LightPositionViewPass + EyeDirectionViewPass;
 	
 	// Normal of the the vertex, in camera space

@@ -93,7 +93,6 @@ int BImage::readImage(const char * Image_name) {
 
 	f.read((char*)&header2, sizeof(header2));
 
-
 //   cout << header1.bfSize << endl ;
 //   cout <<  header2.biWidth << " " <<  header2.biHeight << "  " <<   header2.biWidth * header2.biHeight * 3 << endl ;
 //   cout << header2.biSizeImage << endl ;

@@ -136,5 +136,8 @@
     <Image Include="textures\wall.bmp">
       <Filter>textures</Filter>
     </Image>
+    <Image Include="textures\2.png">
+      <Filter>textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>
