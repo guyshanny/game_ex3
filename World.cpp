@@ -45,7 +45,8 @@ void World::draw()
 	// Drawing scene objects
 	_spaceship.draw(_projection, view, camPos, camPos, _lightColor);
 	_static->draw(_projection, view, camPos, camPos, _lightColor);
-	_asteroids.render(_projection*view, camPos, _spaceship.getUp());
+	glm::mat4 z = _projection*view;
+	_asteroids.render(_projection, view, camPos, _spaceship.getUp());
 
 	char* s = "LIVES: 10";	
 	glRasterPos2f(-0.9f, 0.9f);

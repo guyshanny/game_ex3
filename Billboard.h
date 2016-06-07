@@ -10,7 +10,7 @@ public:
 
 	virtual void init();
 
-	void setVP(const glm::mat4& VP);
+	void setVP(const glm::mat4& projection, const glm::mat4& view);
 	void setCameraPosition(const glm::vec3& pos);
 	void setColorTextureUnit(unsigned int textureUnit);
 	void setUpVector(const glm::vec3& up);
@@ -18,7 +18,8 @@ public:
 	void bindTexture();
 
 private:
-	GLuint m_VPLocation;
+	GLuint m_viewLocation;
+	GLuint m_projectionLocation;
 	GLuint m_cameraPosLocation;
 	GLuint m_colorMapLocation;
 	GLuint m_upLocation;

@@ -32,8 +32,8 @@ void Asteroids::createPositionBuffer()
 	//		positions[j * NUM_COLUMNS + i] = pos;
 	//	}
 	//}
-	positions[0] = glm::vec3(-6, -5, 12);
-	positions[1] = glm::vec3(6, -5, 5);
+	positions[0] = glm::vec3(-6, -5, -40);
+	positions[1] = glm::vec3(6, -5, -20);
 
 	glGenBuffers(1, &m_VB);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VB);
@@ -43,15 +43,15 @@ void Asteroids::createPositionBuffer()
 		GL_STATIC_DRAW);
 }
 
-void Asteroids::render(const glm::mat4& VP, const glm::vec3& cameraPos, const glm::vec3& cameraUp)
+void Asteroids::render(const glm::mat4& projection, const glm::mat4& view, const glm::vec3& cameraPos, const glm::vec3& cameraUp)
 {
 	m_billboard.enable();
-	m_billboard.setVP(VP);
+	m_billboard.setVP(projection, view);
 	m_billboard.setCameraPosition(cameraPos);
 	m_billboard.setUpVector(cameraUp);
 	m_billboard.setColorTextureUnit(0);
 	m_billboard.bindTexture();
-
+	
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VB);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);   // position	

@@ -13,12 +13,14 @@ void Billboard::init()
 	addShader(GL_FRAGMENT_SHADER, "shaders\\billboard.fs");
 	finalize();
 
-	m_VPLocation = getUniformLocation("gVP");
+	m_viewLocation = getUniformLocation("gView");
+	m_projectionLocation = getUniformLocation("gProjection");
 	m_cameraPosLocation = getUniformLocation("gCameraPos");
 	m_upLocation = getUniformLocation("gUp");
 	m_colorMapLocation = getUniformLocation(TEXTURE_SAMPLER);
 
-	if (INVALID_UNIFORM_LOCATION == m_VPLocation ||
+	if (INVALID_UNIFORM_LOCATION == m_viewLocation ||
+		INVALID_UNIFORM_LOCATION == m_projectionLocation ||
 		INVALID_UNIFORM_LOCATION == m_cameraPosLocation ||
 		INVALID_UNIFORM_LOCATION == m_colorMapLocation ||
 		INVALID_UNIFORM_LOCATION == m_upLocation) {
@@ -26,9 +28,10 @@ void Billboard::init()
 	}
 }
 
-void Billboard::setVP(const glm::mat4& VP)
+void Billboard::setVP(const glm::mat4& projection, const glm::mat4& view)
 {
-	glUniformMatrix4fv(m_VPLocation, 1, GL_TRUE, &VP[0][0]);
+	glUniformMatrix4fv(m_projectionLocation, 1, GL_FALSE, &projection[0][0]);
+	glUniformMatrix4fv(m_viewLocation, 1, GL_FALSE, &view[0][0]);
 }
 
 void Billboard::setCameraPosition(const glm::vec3& pos)
