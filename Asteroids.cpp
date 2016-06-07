@@ -1,6 +1,5 @@
 #include "Asteroids.h"
 #include "globals.h"
-#include "Camera.h"
 
 #define NUM_ROWS 2
 #define NUM_COLUMNS 1
