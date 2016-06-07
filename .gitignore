@@ -235,4 +235,8 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
+# Visual C++ cache files
 *.VC.db
+*.VC.VC.opendb
+
+*.vcxproj
