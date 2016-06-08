@@ -54,8 +54,10 @@ void Billboard::enable()
 	BEGIN_OPENGL;
 }
 
-void Billboard::bindTexture()
+void Billboard::bindTexture(const char* textureIMG)
 {
+	_textureID = initTexture(textureIMG);
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _textureID);
 }

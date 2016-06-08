@@ -2,36 +2,21 @@
 #include <GL/freeglut.h>
 #include <iostream>
 #include "World.h"
+//#include "InputManager.h"
+
 
 int const WINDOW_WIDTH = 512;
 int const WINDOW_HEIGHT = 512;
 
 World* _world;
-
-namespace Controls
-{
-	enum KeyControls
-	{
-		KEY_ESC = (27),
-		KEY_RESET = ('r'),
-		KEY_RELOAD = ('l'),
-
-		// Teapot controls
-		KEY_MOVE = (' '),
-
-		// Camera controls
-		KEY_UP = ('w'),
-		KEY_DOWN = ('s'),
-		KEY_LEFT = ('a'),
-		KEY_RIGHT = ('d'),
-	};
-}
+//InputManager* _inputManager;
 
 void init();
 void display();
 void keyboard(unsigned char key, int x, int y);
 void update();
 void resizeWindowHandler(int width, int height);
+void timer(int value);
 
 int main(int argc, char **argv)
 {
@@ -50,8 +35,9 @@ int main(int argc, char **argv)
 	//glutMouseWheelFunc(mouseWheel);
 	//glutPassiveMotionFunc(mouseMove);
 	//glutSpecialFunc(specialkey);
-	glutIdleFunc(update);
+// 	glutIdleFunc(update);
 	glutReshapeFunc(resizeWindowHandler);
+	glutTimerFunc(100, timer, 0);   // uint millis int value
 
 	glutMainLoop();
 
@@ -60,6 +46,7 @@ int main(int argc, char **argv)
 		delete _world;
 		_world = NULL;
 	}
+
 	return 0;
 }
 
@@ -74,6 +61,9 @@ void init(void)
 	// Creating the world
 	_world = new World();
 	_world->init();
+
+	// Creating input manager
+	//_inputManager = new InputManager(_world);
 }
 
 void display(void)
@@ -89,7 +79,9 @@ void display(void)
 
 void keyboard(unsigned char key, int x, int y)
 {
-	switch (tolower(key))
+	unsigned int lowerKey = tolower(key);
+
+	switch (tolower(lowerKey))
 	{
 	case Controls::KEY_UP:
 		_world->upKeyPressed();
@@ -103,14 +95,17 @@ void keyboard(unsigned char key, int x, int y)
 	case Controls::KEY_LEFT:
 		_world->leftKeyPressed();
 		break;
+	case Controls::KEY_MOVE_FORWARD:
+		_world->moveForwardKeyPressed();
+		break;
+	case Controls::KEY_RESET:
+		_world->reset();
+		break;
 	case Controls::KEY_ESC:
 		exit(0);
 		break;
-	case Controls::KEY_MOVE:
-		//_world->changeColorKeyPressed();
-		break;
 	default:
-		std::cerr << "Key " << tolower(key) << " undefined\n";
+		//_inputManager.longTermKeyDown(lowerKey, x, y);
 		break;
 	}
 	glutPostRedisplay();
@@ -137,5 +132,16 @@ void resizeWindowHandler(int width, int height)
 	glViewport(0, 0, width, height);
 
 	// Refresh the display
+	glutPostRedisplay();
+}
+
+void timer(int value)
+{
+	glutTimerFunc(25, timer, ++value);   // uint millis int value
+
+	_world->update();
+
+// 	_inputManager->timeEvents(); // Input timed events (e.g. smooth moving)
+
 	glutPostRedisplay();
 }

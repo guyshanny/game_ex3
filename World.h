@@ -4,7 +4,7 @@
 #include <vector>
 #include "Object.h"
 #include "SpaceShip.h"
-#include "Asteroids.h"
+#include "AsteroidsField.h"
 
 class Camera {
 private:
@@ -41,12 +41,14 @@ public:
 	void draw();
 	void update();
 	void resize(int width, int height);
+	void reset();
 
 	// Keyboard handling
 	void upKeyPressed();
 	void downKeyPressed();
 	void rightKeyPressed();
 	void leftKeyPressed();
+	void moveForwardKeyPressed();
 
 private:
 	// MVP matrices
@@ -59,8 +61,10 @@ private:
 
 	Object* _static;
 	SpaceShip _spaceship;
-	Asteroids _asteroids;
+	AsteroidsField _asteroids;
 	// View port frame:
 	float _width, _height, _offsetX, _offsetY;
+
+	void _updateCameraDependencies();
 };
 
