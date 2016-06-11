@@ -16,7 +16,7 @@ protected:
 	Mesh _mesh;
 
 	// Load a mesh from the given input file
-	bool loadMesh();
+	void loadMesh();
 
 	float normalize(float value, int axis);
 	float normalize_colour(float value, int axis);
@@ -32,7 +32,6 @@ public:
 		const char* textureIMG);
 
 	virtual void init();
-
 	virtual ~OpenMeshObject();
 };
 

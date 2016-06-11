@@ -13,41 +13,50 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="meshes">
-      <UniqueIdentifier>{88b6897d-a08f-4872-a987-c5281565d480}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="shaders">
+    <Filter Include="Shader Files">
       <UniqueIdentifier>{ae4c9e4c-a1d3-4611-ad3a-7bf8b1a25f5f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="textures">
+    <Filter Include="Mesh Files">
+      <UniqueIdentifier>{88b6897d-a08f-4872-a987-c5281565d480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture Files">
       <UniqueIdentifier>{e33f49c7-6552-4ff9-ba15-ee30f490733d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="meshes\bunny_1k.off">
-      <Filter>meshes</Filter>
+      <Filter>Mesh Files</Filter>
     </None>
     <None Include="shaders\phong.frag">
-      <Filter>shaders</Filter>
+      <Filter>Shader Files</Filter>
     </None>
     <None Include="meshes\tie_fighter.off">
-      <Filter>meshes</Filter>
+      <Filter>Mesh Files</Filter>
     </None>
     <None Include="shaders\phong_spaceship.vert">
-      <Filter>shaders</Filter>
+      <Filter>Shader Files</Filter>
     </None>
     <None Include="shaders\billboard.fs">
-      <Filter>shaders</Filter>
+      <Filter>Shader Files</Filter>
     </None>
     <None Include="shaders\billboard.gs">
-      <Filter>shaders</Filter>
+      <Filter>Shader Files</Filter>
     </None>
     <None Include="shaders\billboard.vs">
-      <Filter>shaders</Filter>
+      <Filter>Shader Files</Filter>
     </None>
     <None Include="shaders\phong_wall.vert">
-      <Filter>shaders</Filter>
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="meshes\cube.off">
+      <Filter>Mesh Files</Filter>
+    </None>
+    <None Include="shaders\skybox.fs">
+      <Filter>Shader Files</Filter>
+    </None>
+    <None Include="shaders\skybox.vs">
+      <Filter>Shader Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +91,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Asteroids.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CubemapTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,25 +134,28 @@
     <ClInclude Include="Asteroids.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CubemapTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\teapot.jpg">
-      <Filter>textures</Filter>
+      <Filter>Texture Files</Filter>
     </Image>
     <Image Include="textures\marble.bmp">
-      <Filter>textures</Filter>
+      <Filter>Texture Files</Filter>
     </Image>
     <Image Include="textures\asteroid-icon.png">
-      <Filter>textures</Filter>
+      <Filter>Texture Files</Filter>
     </Image>
     <Image Include="textures\Astro_Asteroid_medium.png">
-      <Filter>textures</Filter>
+      <Filter>Texture Files</Filter>
     </Image>
     <Image Include="textures\wall.bmp">
-      <Filter>textures</Filter>
-    </Image>
-    <Image Include="textures\2.png">
-      <Filter>textures</Filter>
+      <Filter>Texture Files</Filter>
     </Image>
   </ItemGroup>
 </Project>

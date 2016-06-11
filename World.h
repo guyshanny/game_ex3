@@ -5,6 +5,7 @@
 #include "Object.h"
 #include "SpaceShip.h"
 #include "Asteroids.h"
+#include "SkyBox.h"
 
 class Camera {
 private:
@@ -57,9 +58,9 @@ private:
 	//Light properties
 	glm::vec4 _lightColor;
 
-	Object* _static;
 	SpaceShip _spaceship;
 	Asteroids _asteroids;
+	SkyBox _skybox;
 	// View port frame:
 	float _width, _height, _offsetX, _offsetY;
 };

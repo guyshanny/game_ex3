@@ -97,7 +97,6 @@ void ShadedObject::addShader(GLenum shaderType, const char* fileName)
 	glAttachShader(_programID, shaderObj);
 }
 
-
 /* After all the shaders have been added to the program call this 
    function to link and validate the program. */
 void ShadedObject::finalize()
@@ -169,12 +168,12 @@ GLuint ShadedObject::initTexture(const char* fName)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
 		glTexImage2D(GL_TEXTURE_2D,
-			0, //level
-			GL_RGBA8, // internal representation
-			img.width(), img.height(), // texture size
-			0, // must be 0
-			GL_BGR, GL_UNSIGNED_BYTE, // pixel data format
-			img.getImageData()); // pixel data
+			0,							// level
+			GL_RGBA8,					// internal representation
+			img.width(), img.height(),	// texture size
+			0,							// must be 0
+			GL_BGR, GL_UNSIGNED_BYTE,	// pixel data format
+			img.getImageData());		// pixel data
 	}
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return texture;

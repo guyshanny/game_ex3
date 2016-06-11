@@ -16,7 +16,7 @@ OpenMeshObject::OpenMeshObject(const char* vShaderFile,
 void OpenMeshObject::init()
 {
 	Object::init();
-	if (!loadMesh()) return;
+	loadMesh();
 	computeBoundingBox();
 
 	//add normal attribute to the mesh and calculate it.
@@ -56,15 +56,14 @@ void OpenMeshObject::init()
 }
 
 // Load a mesh from the given input file
-bool OpenMeshObject::loadMesh()
+void OpenMeshObject::loadMesh()
 {
 	if (!OpenMesh::IO::read_mesh(_mesh, _meshFile))
 	{
 		// if we didn't make it, exit...
-		fprintf(stderr, "Error loading mesh, Aborting.\n");
-		return false;
+		std::cerr << "Error loading mesh, Aborting." << std::endl;
+		exit(EXIT_FAILURE);
 	}
-	return true;
 }
 
 /**axis: 0 x, 1 y, 2 z ->normalises the value correctly based on proportional magnitudes of the axes. */

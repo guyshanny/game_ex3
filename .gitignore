@@ -240,3 +240,15 @@ _Pvt_Extensions
 *.VC.VC.opendb
 
 *.vcxproj
+/textures/skybox
+/textures/skybox2
+/textures/eKxMGhZ.png
+/textures/skybox.zip
+/textures/env-osirion-r02.zip
+/textures/env-osirion-r02/sky03_up.jpg
+/textures/env-osirion-r02/sky03_rt.jpg
+/textures/env-osirion-r02/sky03_lf.jpg
+/textures/env-osirion-r02/sky03_ft.jpg
+/textures/env-osirion-r02/sky03_dn.jpg
+/textures/env-osirion-r02/sky03_bk.jpg
+/textures/env-osirion-r02/sky03.jpg

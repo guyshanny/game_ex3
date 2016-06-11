@@ -40,9 +40,7 @@ void SpaceShip::draw(const glm::mat4 & projection, const glm::mat4& view, const 
 		glBindTexture(GL_TEXTURE_2D, _textureID);
 
 		//draw
-		//size_t n_faces = _mesh.n_faces();
 		glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
-		//glDrawArrays(GL_TRIANGLES, 0, n_faces * 3);
 
 		// Unbind the Vertex Array object
 		glBindVertexArray(0);
