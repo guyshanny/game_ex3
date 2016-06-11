@@ -5,7 +5,6 @@ in vec3 PositionWorldPass;
 in vec3 NormalViewPass;
 in vec3 EyeDirectionViewPass;
 in vec3 LightDirectionViewPass;
-in vec3 LightPositionViewPass;
 in vec2 TexCoordPass;
 // Ouput data
 out vec3 outColor;
@@ -30,7 +29,7 @@ void main()
 	// Normal of the computed fragment, in camera space
 	vec3 N = normalize(NormalViewPass);
 	// Direction of the light (from the fragment to the light)
-	vec3 L = normalize(LightDirectionViewPass);
+	vec3 L = normalize(EyeDirectionViewPass);
 	// Cosine of the angle between the normal and the light direction, 
 	// clamped above 0
 	//  - light is at the vertical of the triangle -> 1
@@ -47,16 +46,8 @@ void main()
 	//  - Looking into the reflection -> 1
 	//  - Looking elsewhere -> < 1
 	float cosAlpha = clamp(dot(V,R), 0, 1);
-
-	float gLightAttenuation = 0.0005; //should be uniform
-	vec3 temp = LightPositionViewPass - PositionWorldPass;
-	//attenuation by distance of fragment from light:
-	float attenuation = 1.0 / (1.0 + gLightAttenuation * pow(length(temp), 2));
 	
-	outColor = vec3(0, 0, 0);
-	outColor += materialDiffuseColor * LightColor * cosTheta;			// Diffuse : "color" of the object
-	outColor += materialSpecularColor * LightColor *pow(cosAlpha,5);	// Specular : reflective highlight, like a mirror
-	outColor *= attenuation;
-	outColor += materialAmbientColor;									// Ambient : simulates indirect lighting
-		
+	outColor = materialDiffuseColor * LightColor * cosTheta			// Diffuse : "color" of the object
+			+ materialSpecularColor * LightColor * pow(cosAlpha,5)	// Specular : reflective highlight, like a mirror
+			+ materialAmbientColor;										// Ambient : simulates indirect lighting		
 }

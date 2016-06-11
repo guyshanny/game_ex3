@@ -15,6 +15,13 @@ SpaceShip::SpaceShip(const glm::vec3 pos, const glm::vec4 & color, const char* v
 	}
 }
 
+void SpaceShip::reset()
+{
+	_model = glm::translate(glm::mat4(1), _initialPos);
+	_up = glm::vec3(0, 1, 0);
+	_front = glm::vec3(0, 0, -1);
+}
+
 SpaceShip::~SpaceShip()
 {
 }
@@ -142,12 +149,6 @@ void SpaceShip::_moveForwordLogic(const float& speed)
 	// Ship movement
 	glm::mat4 trans = glm::translate(speed * _front);
 	_setPosition(trans * glm::vec4(_position, 1.f));
-	_model = trans * _model;
-}
-
-void SpaceShip::reset()
-{
-	glm::mat4 trans = glm::translate(_front - _initialPos);
 	_model = trans * _model;
 }
 

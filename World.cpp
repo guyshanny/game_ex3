@@ -84,8 +84,6 @@ void World::resize(int width, int height)
 void World::reset()
 {
 	_spaceship.reset();
-
-	//glutPostRedisplay();
 }
 
 #pragma region KeysHandling

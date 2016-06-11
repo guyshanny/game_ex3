@@ -107,7 +107,6 @@ void keyboard(unsigned char key, int x, int y)
 		//_inputManager.longTermKeyDown(lowerKey, x, y);
 		break;
 	}
-	//glutPostRedisplay();
 }
 
 void update()
@@ -129,9 +128,6 @@ void resizeWindowHandler(int width, int height)
 	
 	// set the new viewport
 	glViewport(0, 0, width, height);
-
-	// Refresh the display
-	//glutPostRedisplay();
 }
 
 void timer(int value)
