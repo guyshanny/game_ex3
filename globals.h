@@ -3,16 +3,23 @@
 #define PROGRAM_DEFAULT_ID			"default"
 #define BEGIN_OPENGL				glUseProgram(_programID)
 #define END_OPENGL					glUseProgram(0)
-#define TURN_SPEED					(0.1f)
 #define INVALID_OGL_VALUE			0xffffffff
 #define INVALID_UNIFORM_LOCATION	0xffffffff
 
-enum Commands
+
+namespace Controls
 {
-	TURN_UP,
-	TURN_DOWN,
-	TURN_LEFT,
-	TURN_RIGHT,
-	MOVE_FORWORD,
-	NUM_OF_COMMANDS = 5
-};
+	enum KeyControls
+	{
+		KEY_ESC = (27),
+		KEY_RESET = ('r'),
+		KEY_RELOAD = ('l'),
+
+		// Ship (camera) controls
+		KEY_UP = ('w'),
+		KEY_DOWN = ('s'),
+		KEY_LEFT = ('a'),
+		KEY_RIGHT = ('d'),
+		KEY_MOVE_FORWARD = (' '),
+	};
+}

@@ -4,6 +4,7 @@
 #include <vector>
 #include "Object.h"
 #include "SpaceShip.h"
+#include "AsteroidsField.h"
 #include "Asteroids.h"
 #include "SkyBox.h"
 
@@ -42,12 +43,14 @@ public:
 	void draw();
 	void update();
 	void resize(int width, int height);
+	void reset();
 
 	// Keyboard handling
 	void upKeyPressed();
 	void downKeyPressed();
 	void rightKeyPressed();
 	void leftKeyPressed();
+	void moveForwardKeyPressed();
 
 private:
 	// MVP matrices
@@ -59,9 +62,12 @@ private:
 	glm::vec4 _lightColor;
 
 	SpaceShip _spaceship;
+	AsteroidsField _asteroids;
 	Asteroids _asteroids;
 	SkyBox _skybox;
 	// View port frame:
 	float _width, _height, _offsetX, _offsetY;
+
+	void _updateCameraDependencies();
 };
 

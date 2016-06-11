@@ -2,6 +2,7 @@
 
 #include "Object.h"
 #include <OpenMesh/Core/Mesh/PolyMesh_ArrayKernelT.hh>
+#include <glm\glm.hpp>
 
 typedef OpenMesh::PolyMesh_ArrayKernelT<> Mesh;
 

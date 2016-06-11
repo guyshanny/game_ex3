@@ -3,8 +3,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 SpaceShip::SpaceShip(const glm::vec3 pos, const glm::vec4 & color, const char* vShaderFile, const char* fShaderFile, 
-					const char* textureIMG, const char*  meshPath) :
-	OpenMeshObject(vShaderFile, fShaderFile, pos, color, meshPath, textureIMG), _up(0,1,0), _front(0,0,-1)
+					const char* textureIMG, const char*  meshPath) : 
+	OpenMeshObject(vShaderFile, fShaderFile, pos, color, meshPath, textureIMG), _initialPos(pos), _up(0,1,0), _front(0,0,-1)
 {
 	_model = glm::translate(glm::mat4(1), _position);
 	//_model = glm::rotate(_model, 90.f, _up);
@@ -104,11 +104,11 @@ const glm::vec3 SpaceShip::getDirection() const
 
 void SpaceShip::update()
 {
-	if (_commands[TURN_UP])		{ _pitchLogic(TURN_SPEED, TURN_UP); }
-	if (_commands[TURN_DOWN])	{ _pitchLogic(-TURN_SPEED, TURN_DOWN); }
-	if (_commands[TURN_RIGHT])	{ _yawLogic(-TURN_SPEED, TURN_RIGHT); }
-	if (_commands[TURN_LEFT])	{ _yawLogic(TURN_SPEED, TURN_LEFT); }
-	if (_commands[MOVE_FORWORD]) { _moveForwordLogic(); }
+	if (_commands[TURN_UP])		{ _pitchLogic(TURN_SPEED, Commands::TURN_UP); }
+	if (_commands[TURN_DOWN])	{ _pitchLogic(-TURN_SPEED, Commands::TURN_DOWN); }
+	if (_commands[TURN_RIGHT])	{ _yawLogic(-TURN_SPEED, Commands::TURN_RIGHT); }
+	if (_commands[TURN_LEFT])	{ _yawLogic(TURN_SPEED, Commands::TURN_LEFT); }
+	if (_commands[MOVE_FORWORD]) { _moveForwordLogic(MOVE_SPEED); }
 }
 
 glm::vec3 SpaceShip::getRight()
@@ -118,7 +118,8 @@ glm::vec3 SpaceShip::getRight()
 	return glm::cross(front, up);
 }
 
-void SpaceShip::_pitchLogic(float speed, Commands comm) {
+void SpaceShip::_pitchLogic(float speed, Commands comm) 
+{
 	_commands[comm] = false;
 	glm::mat4 rot = glm::rotate(glm::mat4(1), speed, getRight());
 	_model = rot * _model;
@@ -126,18 +127,28 @@ void SpaceShip::_pitchLogic(float speed, Commands comm) {
 	_front = glm::vec3(rot * glm::vec4(_front, 1));
 }
 
-void SpaceShip::_yawLogic(float speed, Commands comm) {
+void SpaceShip::_yawLogic(float speed, Commands comm) 
+{
 	_commands[comm] = false;
 	glm::mat4 rot = glm::rotate(glm::mat4(1), speed, _up);
 	_model = rot * _model;
 	_front = glm::vec3(rot * glm::vec4(_front, 1));
 }
 
-void SpaceShip::_moveForwordLogic()
+void SpaceShip::_moveForwordLogic(const float& speed)
 {
-	_commands[MOVE_FORWORD] = false;
-	//translate
-	//move position by speed*direction
+	_commands[Commands::MOVE_FORWORD] = false;
+
+	// Ship movement
+	glm::mat4 trans = glm::translate(speed * _front);
+	_setPosition(trans * glm::vec4(_position, 1.f));
+	_model = trans * _model;
+}
+
+void SpaceShip::reset()
+{
+	glm::mat4 trans = glm::translate(_front - _initialPos);
+	_model = trans * _model;
 }
 
 void SpaceShip::turnUp()		{ _commands[TURN_UP] = true; }
@@ -145,4 +156,3 @@ void SpaceShip::turnDown()		{ _commands[TURN_DOWN] = true; }
 void SpaceShip::turnLeft()		{ _commands[TURN_LEFT] = true; }
 void SpaceShip::turnRight()		{ _commands[TURN_RIGHT] = true; }
 void SpaceShip::moveForword()	{ _commands[MOVE_FORWORD] = true; }
-

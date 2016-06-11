@@ -20,10 +20,10 @@ protected:
 	GLuint _programID; 
 	GLuint _textureID;
 	const std::string _textureImg;
+	static GLuint initTexture(const char* fName);
 
 private:
 	typedef std::list<GLuint> ShaderObjList;
 	ShaderObjList m_shaderObjList;
-	static GLuint initTexture(const char* fName);
 };
 

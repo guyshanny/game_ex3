@@ -1,6 +1,7 @@
 #include "Object.h"
 #include <iostream>
 //#include <opencv2/highgui/highgui.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 
 Object::Object(const char* vShaderFile, const char* fShaderFile,
@@ -47,6 +48,7 @@ glm::vec3 Object::calculateCenter() {
 	}
 	return center / (float)_vertices.size();
 }
+
 
 void Object::setWorldUniforms(const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor)
 {

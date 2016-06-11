@@ -33,10 +33,12 @@ public:
 	}
 
 	glm::mat4 getModel() { return _model; }
+	glm::vec3 getPosition() { return _position; }
 
 protected:
 	glm::vec3 _position;
 	glm::vec4 _color;
+	glm::vec3 _speed;
 	// Shaders' stuff
 	GLuint _vao, _vbo, _ebo;
 	const char* _vShaderFile;
@@ -51,5 +53,7 @@ protected:
 	void setWorldUniforms(const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor);
 	void calcBoundingSphere();
 	glm::vec3 calculateCenter();
+	void _setPosition(const glm::vec4& pos) { _position = glm::vec3(pos); }
+	void _setPosition(const glm::vec3& pos) { _position = pos; }
 };
 
