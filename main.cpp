@@ -4,7 +4,6 @@
 #include "World.h"
 //#include "InputManager.h"
 
-
 int const WINDOW_WIDTH = 512;
 int const WINDOW_HEIGHT = 512;
 
@@ -108,7 +107,7 @@ void keyboard(unsigned char key, int x, int y)
 		//_inputManager.longTermKeyDown(lowerKey, x, y);
 		break;
 	}
-	glutPostRedisplay();
+	//glutPostRedisplay();
 }
 
 void update()
@@ -132,7 +131,7 @@ void resizeWindowHandler(int width, int height)
 	glViewport(0, 0, width, height);
 
 	// Refresh the display
-	glutPostRedisplay();
+	//glutPostRedisplay();
 }
 
 void timer(int value)

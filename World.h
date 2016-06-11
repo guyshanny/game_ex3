@@ -5,7 +5,6 @@
 #include "Object.h"
 #include "SpaceShip.h"
 #include "AsteroidsField.h"
-#include "Asteroids.h"
 #include "SkyBox.h"
 
 class Camera {
@@ -63,7 +62,6 @@ private:
 
 	SpaceShip _spaceship;
 	AsteroidsField _asteroids;
-	Asteroids _asteroids;
 	SkyBox _skybox;
 	// View port frame:
 	float _width, _height, _offsetX, _offsetY;

@@ -64,11 +64,11 @@ void World::_updateCameraDependencies()
 
 void World::update()
 {
+	_spaceship.update();
 	_camera.update();
 
 	_updateCameraDependencies();
 
-	_spaceship.update();
 	_asteroids.update();
 	_skybox.update();
 }
@@ -85,7 +85,7 @@ void World::reset()
 {
 	_spaceship.reset();
 
-	glutPostRedisplay();
+	//glutPostRedisplay();
 }
 
 #pragma region KeysHandling
