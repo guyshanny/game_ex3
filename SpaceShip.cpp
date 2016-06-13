@@ -7,7 +7,6 @@ SpaceShip::SpaceShip(const glm::vec3 pos, const glm::vec4 & color, const char* v
 	OpenMeshObject(vShaderFile, fShaderFile, pos, color, meshPath, textureIMG), _initialPos(pos), _up(0,1,0), _front(0,0,-1)
 {
 	_model = glm::translate(glm::mat4(1), _position);
-	//_model = glm::rotate(_model, 90.f, _up);
 
 	for (int comm = 0; comm != NUM_OF_COMMANDS; comm++) {
 		Commands command = static_cast<Commands>(comm);
@@ -20,6 +19,7 @@ void SpaceShip::reset()
 	_model = glm::translate(glm::mat4(1), _initialPos);
 	_up = glm::vec3(0, 1, 0);
 	_front = glm::vec3(0, 0, -1);
+	_position = _initialPos;
 }
 
 SpaceShip::~SpaceShip()
@@ -97,16 +97,6 @@ void SpaceShip::init()
 			glBindVertexArray(0);
 		}
 	}
-}
-
-const glm::vec3 SpaceShip::getUp() const
-{
-	return _up;
-}
-
-const glm::vec3 SpaceShip::getDirection() const
-{
-	return _front;
 }
 
 void SpaceShip::update()

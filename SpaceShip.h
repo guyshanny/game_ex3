@@ -28,9 +28,9 @@ public:
 	void draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor);
 	void update();
 	void init();
-	const glm::vec3 getUp() const;
-	const glm::vec3 getDirection() const;
-	glm::vec3& getPosition() { return _position; }
+	const glm::vec3& getUp() const			{ return _up; }
+	const glm::vec3& getDirection() const	{ return _front; }
+	const glm::vec3& getPosition() const	{ return _position; }
 
 	// Key functions
 	void turnUp();

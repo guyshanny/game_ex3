@@ -84,6 +84,7 @@ void World::resize(int width, int height)
 void World::reset()
 {
 	_spaceship.reset();
+	_asteroids.setCenter(_spaceship.getPosition());
 }
 
 #pragma region KeysHandling

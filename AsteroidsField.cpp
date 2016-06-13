@@ -35,7 +35,7 @@ AsteroidsField::~AsteroidsField()
 	}
 }
 
-void AsteroidsField::init(glm::vec3& center, 
+void AsteroidsField::init(const glm::vec3& center, 
 						  const GLfloat& minRadius,
 						  const GLfloat& maxRadius,
 						  const GLuint& maxNumOfAsteroids)
@@ -53,12 +53,14 @@ void AsteroidsField::init(glm::vec3& center,
 
 void AsteroidsField::_cpu2gpu()
 {
-	std::vector<glm::vec3> positions;
+	std::vector<glm::vec4> positions;
+	std::vector<glm::vec3> colors;
 	for (Asteroid asteroid : _asteroids)
 	{
 		if (asteroid.isAlive)
 		{
-			positions.push_back(asteroid.getPosition());
+			positions.push_back(glm::vec4(asteroid.getPosition(), asteroid.size));
+			colors.push_back(glm::vec3(0.3, 0, 0));
 		}
 	}
 
@@ -67,9 +69,16 @@ void AsteroidsField::_cpu2gpu()
 	glGenBuffers(1, &_vb);
 	glBindBuffer(GL_ARRAY_BUFFER, _vb);
 	glBufferData(GL_ARRAY_BUFFER,
-		sizeof(glm::vec3) * _nAsteroids,
+		sizeof(glm::vec4) * _nAsteroids,
 		&positions[0],
 		GL_STATIC_DRAW);
+
+	glGenBuffers(1, &_cb);
+	glBindBuffer(GL_ARRAY_BUFFER, _cb);
+	glBufferData(GL_ARRAY_BUFFER,
+		sizeof(glm::vec3) * _nAsteroids,
+		&colors[0],
+		GL_STATIC_DRAW);	
 }
 
 void AsteroidsField::update()
@@ -181,9 +190,15 @@ void AsteroidsField::draw(const glm::mat4& projection, const glm::mat4& view, co
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, _vb);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);   // position	
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);   // position
+	
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, _cb);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);   // color
+	
 	glDrawArrays(GL_POINTS, 0, _nAsteroids);
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 
 	END_OPENGL;
 }

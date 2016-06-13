@@ -25,7 +25,7 @@ class AsteroidsField
 public:
 	AsteroidsField::AsteroidsField(std::vector<char*> textures);
 	~AsteroidsField();
-	void AsteroidsField::init(glm::vec3& center,
+	void AsteroidsField::init(const glm::vec3& center,
 							  const GLfloat& minRadius,
 							  const GLfloat& maxRadius,
 							  const GLuint& maxNumOfAsteroids);
@@ -52,7 +52,8 @@ private:
 	GLfloat _rand(const GLfloat& min, const GLfloat& max);
 	void _cpu2gpu();
 
-	GLuint _vb;
+	GLuint _vb;				// vertex buffer
+	GLuint _cb;				// color buffer
 	Billboard _billboard;
 
 	const char* _vShaderFile;
