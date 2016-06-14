@@ -2,6 +2,9 @@
 
 #include "Object.h"
 
+#define INITIAL_LIFE 1
+#define DEATH_VALUE 0
+
 class Asteroid : public Object 
 {
 public:
@@ -28,7 +31,7 @@ public:
 
 	GLuint id;
 	GLfloat size;
-	bool isAlive;
+	GLfloat life;
 	GLfloat radius;
 	GLuint type;
 	GLfloat camDist;

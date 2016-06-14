@@ -23,7 +23,8 @@ AsteroidsField::AsteroidsField(std::vector<char*> textures) :
 	_textures(textures),
 	_nAsteroids(0),
 	_lastUsedAsteroid(0),
-	_vb(INVALID_OGL_VALUE), _billboard(textures.at(0))
+	_vb(INVALID_OGL_VALUE), _cb(INVALID_OGL_VALUE),
+	_billboard(textures.at(0))
 {
 }
 
@@ -33,11 +34,14 @@ AsteroidsField::~AsteroidsField()
 	{
 		glDeleteBuffers(1, &_vb);
 	}
+	if (_cb != INVALID_OGL_VALUE)
+	{
+		glDeleteBuffers(1, &_cb);
+	}
 }
 
 void AsteroidsField::init(const glm::vec3& center, 
-						  const GLfloat& minRadius,
-						  const GLfloat& maxRadius,
+						  const GLfloat& minRadius, const GLfloat& maxRadius,
 						  const GLuint& maxNumOfAsteroids)
 {
 	// Params for the asteroid field
@@ -57,7 +61,8 @@ void AsteroidsField::_cpu2gpu()
 	std::vector<glm::vec3> colors;
 	for (Asteroid asteroid : _asteroids)
 	{
-		if (asteroid.isAlive)
+		// if asteroid is alive
+		if (asteroid.life > DEATH_VALUE)
 		{
 			positions.push_back(glm::vec4(asteroid.getPosition(), asteroid.size));
 			colors.push_back(glm::vec3(0.3, 0, 0));
@@ -86,7 +91,7 @@ void AsteroidsField::update()
 	for (GLuint i = 0; i < _asteroids.size(); i++)
 	{
 		// There wasn't collision 
-		if (_asteroids[i].isAlive)
+		if (_asteroids[i].life > DEATH_VALUE)
 		{
 			// Moving asteroid
 // 			_asteroids[i].setPosition(_asteroids[i].getPosition() + _asteroids[i].getSpeed());
@@ -98,7 +103,7 @@ void AsteroidsField::update()
 			}
 			else // Kill
 			{
-				_asteroids[i].isAlive = false;
+				_asteroids[i].life = DEATH_VALUE;
 				_createRandomAsteroids(1, false);
 			}
 		}
@@ -115,7 +120,7 @@ void AsteroidsField::_addAsteroid()
 {
 	GLuint id = _findUnusedAsteroid();
 	Asteroid& asteroid = _asteroids[id];
-	asteroid.isAlive = true;
+	asteroid.life = INITIAL_LIFE;
 	asteroid.size = _rand(0.04f, 4.f);
 	asteroid.radius = asteroid.size * glm::sqrt(0.5f);
 
@@ -134,7 +139,7 @@ void AsteroidsField::_addAsteroid(const GLuint& id)
 	GLuint asteroidType = rand() % _textures.size();
 
 	Asteroid asteroid(_vShaderFile, _fShaderFile, _textures[asteroidType]);
-	asteroid.isAlive = true;
+	asteroid.life = INITIAL_LIFE;
 	asteroid.size = _rand(0.04f, 4.f);
 	asteroid.radius = asteroid.size * glm::sqrt(0.5f);
 
@@ -155,7 +160,8 @@ GLuint AsteroidsField::_findUnusedAsteroid()
 {
 	for (GLuint i = _lastUsedAsteroid; i < _asteroids.size(); i++)
 	{
-		if (!_asteroids[i].isAlive)
+		// if asteroid is dead
+		if (_asteroids[i].life <= DEATH_VALUE)
 		{
 			_lastUsedAsteroid = i;
 			return i;
