@@ -8,11 +8,9 @@ uniform mat4 gView, gProjection;
 uniform vec3 gCameraPos;
 uniform vec3 gUp;
 
-in vec3 vColor[];
 in float vSize[];
 
 out vec2 TexCoordPass;
-out vec3 colorPass;
 
 void main() {
 	mat4 MVP = gProjection * gView;
@@ -26,14 +24,12 @@ void main() {
     pos -= (right * 0.5) * vSize[0];
     gl_Position = MVP * vec4(pos, 1.0);
     TexCoordPass = vec2(0.0, 1.0);
-	colorPass = vColor[0];
     EmitVertex();
 
 	// top left corner
     pos.y += 1.0 * vSize[0];
     gl_Position = MVP * vec4(pos, 1.0);
     TexCoordPass = vec2(0.0, 0.0);
-	colorPass = vColor[0];
     EmitVertex();
 	
 	// bottom right corner
@@ -41,14 +37,12 @@ void main() {
     pos += right * vSize[0];
     gl_Position = MVP * vec4(pos, 1.0);
     TexCoordPass = vec2(1.0, 1.0);
-	colorPass = vColor[0];
     EmitVertex();
 	
 	// top right corner
 	pos.y += 1.0 * vSize[0];
     gl_Position = MVP * vec4(pos, 1.0);
     TexCoordPass = vec2(1.0, 0.0);
-	colorPass = vColor[0];
     EmitVertex();
 	
     EndPrimitive();

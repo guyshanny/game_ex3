@@ -5,16 +5,16 @@
 #define INITIAL_LIFE 1
 #define DEATH_VALUE 0
 
-class Asteroid : public Object 
+class Asteroid2 : public Object 
 {
 public:
-	Asteroid(const char* vShaderFile,
+	Asteroid2(const char* vShaderFile,
 			 const char* fShaderFile,
 	 		 const char* textureIMG);
 
 // 	Asteroid(const Asteroid& other);
 
-	bool operator<(const Asteroid& other) const
+	bool operator<(const Asteroid2& other) const
 	{
 		return camDist > other.camDist;
 	}

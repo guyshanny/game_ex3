@@ -40,7 +40,7 @@ public:
 	~World();
 	void init();
 	void draw();
-	void update();
+	void update(int deltaTime);
 	void resize(int width, int height);
 	void reset();
 

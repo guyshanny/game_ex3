@@ -62,14 +62,14 @@ void World::_updateCameraDependencies()
 	_asteroids.setCamera(_camera.getPos());
 }
 
-void World::update()
+void World::update(int deltaTime)
 {
 	_spaceship.update();
 	_camera.update();
 
 	_updateCameraDependencies();
 
-	_asteroids.update();
+	_asteroids.update(deltaTime);
 	_skybox.update();
 }
 

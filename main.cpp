@@ -34,9 +34,9 @@ int main(int argc, char **argv)
 	//glutMouseWheelFunc(mouseWheel);
 	//glutPassiveMotionFunc(mouseMove);
 	//glutSpecialFunc(specialkey);
-// 	glutIdleFunc(update);
+ 	glutIdleFunc(update);
 	glutReshapeFunc(resizeWindowHandler);
-	glutTimerFunc(100, timer, 0);   // uint millis int value
+//	glutTimerFunc(100, timer, 0);   // uint millis int value
 
 	glutMainLoop();
 
@@ -117,7 +117,7 @@ void update()
 	deltaTime = currentTime - prevTime;
 	prevTime = currentTime;
 
-	_world->update();
+	_world->update(deltaTime);
 
 	glutPostRedisplay();
 }
@@ -134,7 +134,7 @@ void timer(int value)
 {
 	glutTimerFunc(25, timer, ++value);   // uint millis int value
 
-	_world->update();
+	_world->update(value);
 
 // 	_inputManager->timeEvents(); // Input timed events (e.g. smooth moving)
 
