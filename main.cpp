@@ -113,7 +113,7 @@ void update()
 {
 	static int currentTime, deltaTime, prevTime = 0;
 	static int startTime, elapsedTime = 0;
-	currentTime = glutGet(GLUT_ELAPSED_TIME);
+	currentTime = glutGet(GLUT_ELAPSED_TIME); // milliseconds
 	deltaTime = currentTime - prevTime;
 	prevTime = currentTime;
 
