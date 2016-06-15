@@ -90,5 +90,7 @@ void SkyBox::draw(const glm::mat4& projection, const glm::mat4& view, const glm:
 	END_OPENGL;		
 }
 
-void SkyBox::update() {
+GLuint SkyBox::update() 
+{
+	return 0;
 }

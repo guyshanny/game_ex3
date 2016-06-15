@@ -53,6 +53,8 @@ void OpenMeshObject::init()
 	}
 	_mesh.release_face_normals();
 	_mesh.release_vertex_normals();
+
+	calcBoundingSphere();
 }
 
 // Load a mesh from the given input file

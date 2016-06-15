@@ -4,7 +4,8 @@
 
 SpaceShip::SpaceShip(const glm::vec3 pos, const glm::vec4 & color, const char* vShaderFile, const char* fShaderFile, 
 					const char* textureIMG, const char*  meshPath) : 
-	OpenMeshObject(vShaderFile, fShaderFile, pos, color, meshPath, textureIMG), _initialPos(pos), _up(0,1,0), _front(0,0,-1)
+	OpenMeshObject(vShaderFile, fShaderFile, pos, color, meshPath, textureIMG), _initialPos(pos), _up(0,1,0), _front(0,0,-1),
+	_life(MAX_LIFE)
 {
 	_model = glm::translate(glm::mat4(1), _position);
 
@@ -99,13 +100,20 @@ void SpaceShip::init()
 	}
 }
 
-void SpaceShip::update()
+GLuint SpaceShip::update()
 {
+	if (_life <= 0)
+	{
+		return LIFE_OPT::DEAD;
+	}
+
 	if (_commands[TURN_UP])		{ _pitchLogic(TURN_SPEED, Commands::TURN_UP); }
 	if (_commands[TURN_DOWN])	{ _pitchLogic(-TURN_SPEED, Commands::TURN_DOWN); }
 	if (_commands[TURN_RIGHT])	{ _yawLogic(-TURN_SPEED, Commands::TURN_RIGHT); }
 	if (_commands[TURN_LEFT])	{ _yawLogic(TURN_SPEED, Commands::TURN_LEFT); }
 	if (_commands[MOVE_FORWORD]) { _moveForwordLogic(MOVE_SPEED); }
+
+	return LIFE_OPT::ALIVE;
 }
 
 glm::vec3 SpaceShip::getRight()
@@ -139,6 +147,7 @@ void SpaceShip::_moveForwordLogic(const float& speed)
 	// Ship movement
 	glm::mat4 trans = glm::translate(speed * _front);
 	_setPosition(trans * glm::vec4(_position, 1.f));
+	_boundingSphere.setCenter(_position);
 	_model = trans * _model;
 }
 

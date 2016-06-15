@@ -64,10 +64,24 @@ void AsteroidsField::_cpu2gpu()
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec4) * _nAsteroids, &positions[0]);	
 }
 
-void AsteroidsField::update(int deltaTime)
+GLuint AsteroidsField::handleCollisions(const Sphere& playerBoundingSphere)
+{
+	GLuint count = 0;
+	for (Asteroid asteroid : _asteroids)
+	{
+		if (asteroid.isCollide(playerBoundingSphere))
+		{
+ 			count += 1;
+			asteroid.kill();
+		}
+	}
+
+	return count;
+}
+
+void AsteroidsField::update(int deltaTime, const glm::vec3& playerPos)
 {
 	float delta = deltaTime * 0.001f;
-
 	for (GLuint i = 0; i < MAX_ASTEROIDS; i++)
 	{
 		Asteroid& a = _asteroids[i];
@@ -77,6 +91,7 @@ void AsteroidsField::update(int deltaTime)
 		{
 			// Moving asteroid
 			a.position += a.speed * delta;
+			a._sphere.setCenter(a.position);
 
 			// Handle killing if reaches grid's end
 			if (glm::length(a.position - _center) <= _maxRadius)
@@ -89,6 +104,7 @@ void AsteroidsField::update(int deltaTime)
 				_addAsteroid();
 			}
 		}
+		// There was a collision with the asteroid
 		else
 		{
 			a.camDist = -1;
@@ -103,20 +119,21 @@ void AsteroidsField::_addAsteroid()
 {
 	GLuint index = _findUnusedAsteroid();
 	Asteroid& asteroid = _asteroids[index];
-	asteroid.isAlive = true;
-	asteroid.size = _rand(0.1f, 5.f);
-	asteroid.radius = asteroid.size * glm::sqrt(0.5f);
+	GLfloat size = _rand(0.1f, 5.f);
+	GLfloat radius = size / 2.f;
 
 	// Handle location
-	GLfloat radius = _rand(_minRadius, _maxRadius);
+	GLfloat r = _rand(_minRadius, _maxRadius);
 	GLfloat theta = _rand((GLfloat)0, (GLfloat)(M_PI*2.f));
 	GLfloat phi = _rand((GLfloat)0, (GLfloat)(M_PI*1.f));
-	asteroid.position = _center + glm::vec3(radius * sinf(phi) * cosf(theta),
-											radius * cosf(phi),
-											radius * sinf(phi) * sinf(theta));
-	asteroid.speed = glm::vec3(_rand(-MAX_SPEED, MAX_SPEED), 
+	glm::vec3 position = _center + glm::vec3(r * sinf(phi) * cosf(theta),
+											r * cosf(phi),
+											r * sinf(phi) * sinf(theta));
+	glm::vec3 speed = glm::vec3(_rand(-MAX_SPEED, MAX_SPEED), 
 							   _rand(-MAX_SPEED, MAX_SPEED), 
 							   _rand(-MAX_SPEED, MAX_SPEED));
+
+	asteroid.update(true, size, radius, position, speed);
 }
 
 void AsteroidsField::_sortParticles() {

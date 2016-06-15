@@ -37,7 +37,7 @@ void Object::calcBoundingSphere() {
 			maxDist = dist;
 		}
 	}
-	_boundingSphere = new Sphere(center, maxDist);
+	_boundingSphere = Sphere(center, maxDist);
 }
 
 glm::vec3 Object::calculateCenter() {

@@ -21,7 +21,7 @@ protected:
 
 	float normalize(float value, int axis);
 	float normalize_colour(float value, int axis);
-	void OpenMeshObject::computeBoundingBox();
+	void computeBoundingBox();
 	void calculate_vertex_normal(const Mesh::VertexHandle &vHandle, const Mesh::FaceHandle &fHandle);
 
 public:
@@ -34,5 +34,6 @@ public:
 
 	virtual void init();
 	virtual ~OpenMeshObject();
+	const Sphere& getBoundingSphere() { return _boundingSphere; }
 };
 

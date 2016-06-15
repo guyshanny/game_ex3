@@ -56,7 +56,7 @@ void Billboard::enable()
 
 void Billboard::bindTexture(const char* textureIMG)
 {
-	_textureID = initTexture(textureIMG);
+// 	_textureID = initTexture(textureIMG);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _textureID);
