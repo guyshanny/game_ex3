@@ -6,7 +6,7 @@ AsteroidsField::AsteroidsField(std::vector<char*> textures) :
 	_textures(textures),
 	_nAsteroids(0),
 	_lastUsedAsteroid(0),
-	_vb(INVALID_OGL_VALUE),
+	_vb(INVALID_OGL_VALUE), _tb(INVALID_OGL_VALUE),
 	_billboard(textures.at(0))
 {
 }
@@ -16,6 +16,10 @@ AsteroidsField::~AsteroidsField()
 	if (_vb != INVALID_OGL_VALUE)
 	{
 		glDeleteBuffers(1, &_vb);
+	}
+	if (_tb != INVALID_OGL_VALUE)
+	{
+		glDeleteBuffers(1, &_tb);
 	}
 }
 
@@ -43,17 +47,26 @@ void AsteroidsField::init(const glm::vec3& center,
 		sizeof(glm::vec4) * MAX_ASTEROIDS,
 		NULL,
 		GL_STATIC_DRAW);
+
+	glGenBuffers(1, &_tb);
+	glBindBuffer(GL_ARRAY_BUFFER, _tb);
+	glBufferData(GL_ARRAY_BUFFER,
+		sizeof(GLuint) * MAX_ASTEROIDS,
+		NULL,
+		GL_STATIC_DRAW);
 }
 
 void AsteroidsField::_cpu2gpu()
 {
 	std::vector<glm::vec4> positions;
+	std::vector<GLuint> types;
 	for (Asteroid asteroid : _asteroids)
 	{
 		// if asteroid is alive
 		if (asteroid.isAlive)
 		{
 			positions.push_back(glm::vec4(asteroid.position, asteroid.size));
+			types.push_back(asteroid.type);
 		}
 	}
 
@@ -61,7 +74,11 @@ void AsteroidsField::_cpu2gpu()
 
 	glBindBuffer(GL_ARRAY_BUFFER, _vb);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * MAX_ASTEROIDS, NULL, GL_STREAM_DRAW);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec4) * _nAsteroids, &positions[0]);	
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec4) * _nAsteroids, &positions[0]);
+
+	glBindBuffer(GL_ARRAY_BUFFER, _tb);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLuint) * MAX_ASTEROIDS, NULL, GL_STREAM_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLuint) * _nAsteroids, &types[0]);
 }
 
 GLuint AsteroidsField::handleCollisions(const Sphere& playerBoundingSphere)
@@ -179,7 +196,11 @@ void AsteroidsField::draw(const glm::mat4& projection, const glm::mat4& view, co
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, _vb);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);   // position
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);   // position + size
+	
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, _tb);
+	glVertexAttribPointer(1, 1, GL_UNSIGNED_INT, GL_FALSE, 0, 0);   // type
 	
 	glDrawArrays(GL_POINTS, 0, _nAsteroids);
 	glDisableVertexAttribArray(0);

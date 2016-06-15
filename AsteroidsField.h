@@ -68,24 +68,19 @@ private:
 	glm::vec3 _center;
 	std::vector<char*> _textures;
 	GLuint _nAsteroids;
-	//std::vector<Asteroid> _asteroids;
 	Asteroid _asteroids[MAX_ASTEROIDS];
 	GLuint _lastUsedAsteroid;
 	GLfloat _minRadius;
 	GLfloat _maxRadius;
 	glm::vec3 _cameraPos;
-//	GLuint _maxNumOfAsteroids;
+	GLuint _tb;			// type buffer
+	GLuint _vb;			// vertex buffer
+	Billboard _billboard;
 
-//	void _createRandomAsteroids(const GLuint& num, const bool& isInit);
-//	void _addAsteroid(const GLuint& id);
 	void _addAsteroid();
 	GLuint _findUnusedAsteroid();
 	GLfloat _rand(const GLfloat& min, const GLfloat& max);
 	void _cpu2gpu();
 	void _sortParticles();
-	
-
-	GLuint _vb;				// vertex buffer
-	Billboard _billboard;
 };
 
