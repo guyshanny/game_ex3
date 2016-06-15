@@ -46,6 +46,7 @@
  	GLfloat size, radius, camDist;
 	bool isAlive;
 	Sphere _sphere;
+	GLuint type;
 };
 
 class AsteroidsField
