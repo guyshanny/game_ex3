@@ -3,6 +3,7 @@
 uniform sampler2D gTextureSampler;
 
 in vec2 TexCoordPass;
+in float typePass;
 out vec4 FragColor;
 
 void main()
