@@ -186,7 +186,6 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SpaceShip.cpp" />
     <ClCompile Include="Sphere.cpp" />
-    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -203,7 +202,6 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="Sphere.h" />
-    <ClInclude Include="Wall.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>

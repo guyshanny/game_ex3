@@ -75,7 +75,7 @@ void SkyBox::draw(const glm::mat4& projection, const glm::mat4& view, const glm:
 		glm::mat4 model = glm::translate(_model, camPos);			
 		glm::mat4 WVP = projection * view * model;					
 		glUniformMatrix4fv(m_WVPLocation, 1, GL_FALSE, &WVP[0][0]);	
-		m_pCubemapTex.bind(GL_TEXTURE0);							
+		m_pCubemapTex.bind(GL_TEXTURE0);	
 
 		//draw mesh
 //		glPolygonMode(GL_FRONT_AND_BACK, GL_POINTS);			//try

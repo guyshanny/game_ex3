@@ -1,13 +1,14 @@
 #include "AsteroidsField.h"
 #include "globals.h"
 #include "Camera.h"
+#include <iostream>
 
 AsteroidsField::AsteroidsField(std::vector<char*> textures) :
 	_textures(textures),
 	_nAsteroids(0),
 	_lastUsedAsteroid(0),
 	_vb(INVALID_OGL_VALUE), _tb(INVALID_OGL_VALUE),
-	_billboard(textures.at(0))
+	_billboard(textures)
 {
 }
 
@@ -62,7 +63,6 @@ void AsteroidsField::_cpu2gpu()
 	std::vector<GLuint> types;
 	for (Asteroid& asteroid : _asteroids)
 	{
-		// if asteroid is alive
 		if (asteroid.isAlive)
 		{
 			positions.push_back(glm::vec4(asteroid.position, asteroid.size));
@@ -151,7 +151,11 @@ void AsteroidsField::_addAsteroid(const GLuint& id)
 							   _rand(-MAX_SPEED, MAX_SPEED), 
 							   _rand(-MAX_SPEED, MAX_SPEED));
 
-	asteroid.update(true, size, radius, position, speed);
+	GLuint min = 0;
+	GLuint max = MAX_TEXTURES-1;
+	GLuint type = min + (rand() % (int)(max - min + 1));
+
+	asteroid.update(true, size, radius, position, speed, type);
 }
 
 void AsteroidsField::_sortParticles() {
@@ -192,8 +196,13 @@ void AsteroidsField::draw(const glm::mat4& projection, const glm::mat4& view, co
 	_billboard.setVP(projection, view);
 	_billboard.setCameraPosition(cameraPos);
 	_billboard.setUpVector(cameraUp);
-	_billboard.setColorTextureUnit(0);
-	_billboard.bindTexture(_textures[0]);
+
+	GLuint* texturesHandles = _billboard.getTexturesHandles();
+	for (GLuint i = 0; i < MAX_TEXTURES; i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, texturesHandles[i]);
+	}
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, _vb);

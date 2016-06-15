@@ -118,14 +118,6 @@ void ShadedObject::finalize()
 		exit(EXIT_FAILURE);
 	}
 
-//	glValidateProgram(_programID);
-//	glGetProgramiv(_programID, GL_VALIDATE_STATUS, &linked);
-//	if (!linked) {
-//		glGetProgramInfoLog(_programID, sizeof(ErrorLog), NULL, ErrorLog);
-//		fprintf(stderr, "Invalid shader program: '%s'\n", ErrorLog);
-//		//   return false;
-//	}
-
 	// Delete the intermediate shader objects that have been added to the program
 	for (ShaderObjList::iterator it = m_shaderObjList.begin(); it != m_shaderObjList.end(); it++) {
 		glDeleteShader(*it);
@@ -137,12 +129,6 @@ void ShadedObject::finalize()
 GLint ShadedObject::getUniformLocation(const char* pUniformName)
 {
 	GLuint location = glGetUniformLocation(_programID, pUniformName);
-
-	if (location == INVALID_UNIFORM_LOCATION) {
-		std::cerr << "Warning! Unable to get the location of uniform " << pUniformName << ". Program: " << _programID << std::endl;
-		
-	}
-
 	return location;
 }
 
