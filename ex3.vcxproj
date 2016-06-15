@@ -29,7 +29,8 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
+    <CLRSupport>false</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -182,6 +183,7 @@
     <ClCompile Include="OpenMeshObject.cpp" />
     <ClCompile Include="ShadedObject.cpp" />
     <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SpaceShip.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Wall.cpp" />
@@ -198,6 +200,7 @@
     <ClInclude Include="OpenMeshObject.h" />
     <ClInclude Include="ShadedObject.h" />
     <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Wall.h" />

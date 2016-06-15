@@ -78,7 +78,7 @@ private:
 
 //	void _createRandomAsteroids(const GLuint& num, const bool& isInit);
 //	void _addAsteroid(const GLuint& id);
-	void _addAsteroid();
+	void _addAsteroid(const GLuint& id);
 	GLuint _findUnusedAsteroid();
 	GLfloat _rand(const GLfloat& min, const GLfloat& max);
 	void _cpu2gpu();

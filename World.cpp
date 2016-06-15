@@ -7,6 +7,7 @@
 
 
 #define MAX_TEXT 40
+// #define ACTIVE_SOUND
 
 World::World() : _camera(&_spaceship, glm::vec3(0, 1.5, 3)), _lightColor(1, 1, 0.88, 1),
 				_spaceship(glm::vec3(0, 0, 0), glm::vec4(0, 0.1, 0.6, 1), 
@@ -20,7 +21,8 @@ World::World() : _camera(&_spaceship, glm::vec3(0, 1.5, 3)), _lightColor(1, 1, 0
 				 "textures\\asteroids\\asteroid7.bmp",
 				 "textures\\asteroids\\asteroid8.bmp",
 				 "textures\\asteroids\\asteroid9.bmp" }),
-	_isPlayerAlive(true)
+	_isPlayerAlive(true),
+	_sound(Sound::instance())
 {
 	// Projection matrix : 45?Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 	// params: fovy, aspect, zNear, zFar
@@ -29,6 +31,9 @@ World::World() : _camera(&_spaceship, glm::vec3(0, 1.5, 3)), _lightColor(1, 1, 0
 
 void World::init()
 {
+#ifdef ACTIVE_SOUND
+	_sound.playBackground();
+#endif
 	_spaceship.init();
 	_asteroids.init(_spaceship.getPosition(), 10.f, 20.f, 20);
 	_skybox.init();
