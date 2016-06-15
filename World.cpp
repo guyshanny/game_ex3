@@ -35,7 +35,7 @@ void World::init()
 	_sound.playBackground();
 #endif
 	_spaceship.init();
-	_asteroids.init(_spaceship.getPosition(), 10.f, 20.f, 20);
+	_asteroids.init(_spaceship.getPosition(), 10.f, 50.f, 20);
 	_skybox.init();
 }
 
@@ -92,12 +92,12 @@ void World::_updateLivesText(const char* text)
 
 void World::update(int deltaTime)
 {
-	GLuint status = _spaceship.update();
+	GLuint status = _spaceship.update(deltaTime);
 	if (status == SpaceShip::LIFE_OPT::DEAD)
 	{
 		_isPlayerAlive = false;
 	}
-	_camera.update();
+	_camera.update(deltaTime);
 
 	_updateCameraDependencies();
 	GLuint collisions = _asteroids.handleCollisions(_spaceship.getBoundingSphere());

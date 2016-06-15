@@ -19,7 +19,7 @@ public:
 	virtual ~Object() {};
 
 	// Updates the object's params if needed (does in each render frame)
-	virtual GLuint update() = 0;
+	virtual GLuint update(int deltaTime) = 0;
 	virtual void draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor) = 0;
 
 	// Draws the object

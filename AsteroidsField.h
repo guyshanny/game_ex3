@@ -7,8 +7,7 @@
 #include "Sphere.h"
 
 #define MAX_ASTEROIDS 300
-#define NEW_AST_PER_SEC 5
-#define MAX_SPEED 0.2f
+#define MAX_SPEED 5.f
 
  struct Asteroid
 {
