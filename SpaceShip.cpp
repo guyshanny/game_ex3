@@ -100,19 +100,19 @@ void SpaceShip::init()
 	}
 }
 
-GLuint SpaceShip::update()
+GLuint SpaceShip::update(int deltaTime)
 {
 	if (_life <= 0)
 	{
 		return LIFE_OPT::DEAD;
 	}
+	float delta = deltaTime * 0.001f;
 
-	if (_commands[TURN_UP])		{ _pitchLogic(TURN_SPEED, Commands::TURN_UP); }
-	if (_commands[TURN_DOWN])	{ _pitchLogic(-TURN_SPEED, Commands::TURN_DOWN); }
-	if (_commands[TURN_RIGHT])	{ _yawLogic(-TURN_SPEED, Commands::TURN_RIGHT); }
-	if (_commands[TURN_LEFT])	{ _yawLogic(TURN_SPEED, Commands::TURN_LEFT); }
-	if (_commands[MOVE_FORWORD]) { _moveForwordLogic(MOVE_SPEED); }
-
+	if (_commands[TURN_UP])		{ _pitchLogic(TURN_SPEED * delta, Commands::TURN_UP); }
+	if (_commands[TURN_DOWN])	{ _pitchLogic(-TURN_SPEED * delta, Commands::TURN_DOWN); }
+	if (_commands[TURN_RIGHT])	{ _yawLogic(-TURN_SPEED * delta, Commands::TURN_RIGHT); }
+	if (_commands[TURN_LEFT])	{ _yawLogic(TURN_SPEED * delta, Commands::TURN_LEFT); }
+	if (_commands[MOVE_FORWORD]) { _moveForwordLogic(MOVE_SPEED * delta); }
 	return LIFE_OPT::ALIVE;
 }
 
@@ -132,7 +132,7 @@ void SpaceShip::_pitchLogic(float speed, Commands comm)
 	_front = glm::vec3(rot * glm::vec4(_front, 1));
 }
 
-void SpaceShip::_yawLogic(float speed, Commands comm) 
+void SpaceShip::_yawLogic(float speed, Commands comm)
 {
 	_commands[comm] = false;
 	glm::mat4 rot = glm::rotate(glm::mat4(1), speed, _up);

@@ -11,7 +11,7 @@ public:
 	
 	void init();
 	void draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor);
-	GLuint update();
+	GLuint update(int deltaTime);
 
 private:
 	GLuint m_WVPLocation;

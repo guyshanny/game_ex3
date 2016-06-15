@@ -31,11 +31,8 @@ void AsteroidsField::init(const glm::vec3& center,
 	_center = center;
 	_minRadius = minRadius;
 	_maxRadius = maxRadius;
-//	_maxNumOfAsteroids = maxNumOfAsteroids;
 
 	for (GLuint i = 0; i < MAX_ASTEROIDS; i++) {
-		//_asteroids[i].isAlive = false;
-		//_asteroids[i].camDist = -1;
 		_addAsteroid();
 	}
 

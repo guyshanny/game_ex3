@@ -5,8 +5,8 @@
 #include "OpenMeshObject.h"
 #include "globals.h"
 
-#define TURN_SPEED (0.1f)
-#define MOVE_SPEED (2.0f)
+#define TURN_SPEED (10.f)	//per second, not frame
+#define MOVE_SPEED (100.f)	//per second, not frame
 #define MAX_LIFE 10
 
 class SpaceShip : public OpenMeshObject
@@ -33,7 +33,7 @@ public:
 	~SpaceShip();
 
 	void draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor);
-	GLuint update();
+	GLuint update(int deltaTime);
 	void init();
 	const glm::vec3& getUp() const			{ return _up; }
 	const glm::vec3& getDirection() const	{ return _front; }

@@ -4,12 +4,10 @@
 #include <vector>
 #include <math.h>
 #include "SpaceShip.h"
-//#include "Asteroid.h"
 #include "Sphere.h"
 
 #define MAX_ASTEROIDS 100
-#define NEW_AST_PER_SEC 5
-#define MAX_SPEED 0.2f
+#define MAX_SPEED 5.f
 
  struct Asteroid
 {
