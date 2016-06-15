@@ -60,7 +60,7 @@ void AsteroidsField::_cpu2gpu()
 {
 	std::vector<glm::vec4> positions;
 	std::vector<GLuint> types;
-	for (Asteroid asteroid : _asteroids)
+	for (Asteroid& asteroid : _asteroids)
 	{
 		// if asteroid is alive
 		if (asteroid.isAlive)
