@@ -29,7 +29,8 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
+    <CLRSupport>false</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -71,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\OpenMesh 5.2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files (x86)\OpenMesh 5.2\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files (x86)\OpenMesh 5.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\OpenMesh 5.1\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -101,7 +102,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>C:\Program Files (x86)\OpenMesh 5.2\lib\OpenMeshCored.lib;C:\Program Files (x86)\OpenMesh 5.2\lib\OpenMeshToolsd.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Program Files (x86)\OpenMesh 5.1\lib\OpenMeshCored.lib;C:\Program Files (x86)\OpenMesh 5.1\lib\OpenMeshToolsd.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -182,6 +183,7 @@
     <ClCompile Include="OpenMeshObject.cpp" />
     <ClCompile Include="ShadedObject.cpp" />
     <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SpaceShip.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Wall.cpp" />
@@ -198,6 +200,7 @@
     <ClInclude Include="OpenMeshObject.h" />
     <ClInclude Include="ShadedObject.h" />
     <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Wall.h" />

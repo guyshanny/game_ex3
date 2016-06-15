@@ -20,7 +20,7 @@ AsteroidsField::~AsteroidsField()
 	if (_tb != INVALID_OGL_VALUE)
 	{
 		glDeleteBuffers(1, &_tb);
-	}
+}
 }
 
 void AsteroidsField::init(const glm::vec3& center, 
@@ -33,7 +33,7 @@ void AsteroidsField::init(const glm::vec3& center,
 	_maxRadius = maxRadius;
 
 	for (GLuint i = 0; i < MAX_ASTEROIDS; i++) {
-		_addAsteroid();
+		_addAsteroid(i);
 	}
 
 	_billboard.init();
@@ -57,7 +57,7 @@ void AsteroidsField::_cpu2gpu()
 {
 	std::vector<glm::vec4> positions;
 	std::vector<GLuint> types;
-	for (Asteroid asteroid : _asteroids)
+	for (Asteroid& asteroid : _asteroids)
 	{
 		// if asteroid is alive
 		if (asteroid.isAlive)
@@ -71,7 +71,7 @@ void AsteroidsField::_cpu2gpu()
 
 	glBindBuffer(GL_ARRAY_BUFFER, _vb);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * MAX_ASTEROIDS, NULL, GL_STREAM_DRAW);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec4) * _nAsteroids, &positions[0]);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(glm::vec4) * _nAsteroids, &positions[0]);	
 
 	glBindBuffer(GL_ARRAY_BUFFER, _tb);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GLuint) * MAX_ASTEROIDS, NULL, GL_STREAM_DRAW);
@@ -81,7 +81,7 @@ void AsteroidsField::_cpu2gpu()
 GLuint AsteroidsField::handleCollisions(const Sphere& playerBoundingSphere)
 {
 	GLuint count = 0;
-	for (Asteroid asteroid : _asteroids)
+	for (Asteroid& asteroid : _asteroids)
 	{
 		if (asteroid.isCollide(playerBoundingSphere))
 		{
@@ -115,12 +115,13 @@ void AsteroidsField::update(int deltaTime, const glm::vec3& playerPos)
 			else // Kill
 			{
 				a.isAlive = false;
-				_addAsteroid();
+				_addAsteroid(i);
 			}
 		}
 		// There was a collision with the asteroid
 		else
 		{
+			_addAsteroid(i);
 			a.camDist = -1;
 		}
 	}
@@ -129,10 +130,10 @@ void AsteroidsField::update(int deltaTime, const glm::vec3& playerPos)
 	_cpu2gpu();
 }
 
-void AsteroidsField::_addAsteroid()
+void AsteroidsField::_addAsteroid(const GLuint& id)
 {
-	GLuint index = _findUnusedAsteroid();
-	Asteroid& asteroid = _asteroids[index];
+// 	GLuint index = _findUnusedAsteroid();
+	Asteroid& asteroid = _asteroids[id];
 	GLfloat size = _rand(0.1f, 5.f);
 	GLfloat radius = size / 2.f;
 

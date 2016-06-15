@@ -8,6 +8,7 @@
 #include "SpaceShip.h"
 #include "AsteroidsField.h"
 #include "SkyBox.h"
+#include "Sound.h"
 
 class Camera {
 private:
@@ -85,6 +86,7 @@ private:
 	AsteroidsField _asteroids;
 	SkyBox _skybox;
 	bool _isPlayerAlive;
+	Sound& _sound;
 
 	// View port frame:
 	float _width, _height, _offsetX, _offsetY;

@@ -20,7 +20,8 @@ World::World() : _camera(&_spaceship, glm::vec3(0, 1.5, 3)), _lightColor(1, 1, 0
 				 "textures\\asteroids\\asteroid7.bmp",
 				 "textures\\asteroids\\asteroid8.bmp",
 				 "textures\\asteroids\\asteroid9.bmp" }),
-	_isPlayerAlive(true)
+	_isPlayerAlive(true),
+	_sound(Sound::instance())
 {
 	// Projection matrix : 45?Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 	// params: fovy, aspect, zNear, zFar
@@ -93,7 +94,7 @@ void World::update(int deltaTime)
 		_isPlayerAlive = false;
 	}
 	_camera.update(deltaTime);
-	
+
 	_updateCameraDependencies();
 	GLuint collisions = _asteroids.handleCollisions(_spaceship.getBoundingSphere());
 	if (collisions > 0)
@@ -102,7 +103,7 @@ void World::update(int deltaTime)
 	}
 
 	_asteroids.update(deltaTime, _spaceship.getPosition());
-	_skybox.update(deltaTime);
+	_skybox.update();
 }
 
 void World::resize(int width, int height)

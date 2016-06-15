@@ -7,7 +7,7 @@
 
 #define TURN_SPEED (10.f)	//per second, not frame
 #define MOVE_SPEED (100.f)	//per second, not frame
-#define MAX_LIFE 10
+#define MAX_LIFE 5
 
 class SpaceShip : public OpenMeshObject
 {
