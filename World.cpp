@@ -107,7 +107,7 @@ void World::update(int deltaTime)
 	}
 
 	_asteroids.update(deltaTime, _spaceship.getPosition());
-	_skybox.update();
+	_skybox.update(deltaTime);
 }
 
 void World::resize(int width, int height)

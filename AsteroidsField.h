@@ -6,8 +6,8 @@
 #include "SpaceShip.h"
 #include "Sphere.h"
 
-#define MAX_ASTEROIDS 300
-#define MAX_SPEED 5.f
+#define MAX_ASTEROIDS 200
+#define MAX_SPEED 0.5f
 
  struct Asteroid
 {
