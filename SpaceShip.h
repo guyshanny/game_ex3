@@ -7,10 +7,17 @@
 
 #define TURN_SPEED (0.1f)
 #define MOVE_SPEED (2.0f)
+#define MAX_LIFE 10
 
 class SpaceShip : public OpenMeshObject
 {
 public:
+	enum LIFE_OPT
+	{
+		ALIVE,
+		DEAD
+	};
+
 	enum Commands
 	{
 		TURN_UP,
@@ -26,11 +33,13 @@ public:
 	~SpaceShip();
 
 	void draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor);
-	void update();
+	GLuint update();
 	void init();
 	const glm::vec3& getUp() const			{ return _up; }
 	const glm::vec3& getDirection() const	{ return _front; }
 	const glm::vec3& getPosition() const	{ return _position; }
+	void collide() { _life -= 1; }
+	GLuint getLife() { return _life; }
 
 	// Key functions
 	void turnUp();
@@ -43,6 +52,7 @@ private:
 	glm::vec3 _up;
 	glm::vec3 _front;
 	glm::vec3 _initialPos;
+	GLuint _life;
 
 	glm::vec3 getRight();
 

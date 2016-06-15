@@ -3,7 +3,10 @@
 #include "Wall.h"
 #include <glm/gtc/matrix_transform.hpp> //translate, rotate, scale, perspective, lookAt
 #include <GL\glut.h> //glutBitmapCharacter
+#include <string.h>
 
+
+#define MAX_TEXT 40
 
 World::World() : _camera(&_spaceship, glm::vec3(0, 1.5, 3)), _lightColor(1, 1, 0.88, 1),
 				_spaceship(glm::vec3(0, 0, 0), glm::vec4(0, 0.1, 0.6, 1), 
@@ -16,7 +19,8 @@ World::World() : _camera(&_spaceship, glm::vec3(0, 1.5, 3)), _lightColor(1, 1, 0
 				 "textures\\asteroids\\asteroid6.bmp",
 				 "textures\\asteroids\\asteroid7.bmp",
 				 "textures\\asteroids\\asteroid8.bmp",
-				 "textures\\asteroids\\asteroid9.bmp" })
+				 "textures\\asteroids\\asteroid9.bmp" }),
+	_isPlayerAlive(true)
 {
 	// Projection matrix : 45?Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 	// params: fovy, aspect, zNear, zFar
@@ -45,6 +49,12 @@ void print_bitmap_string(void* font, char* s) {
 
 void World::draw()
 {
+	if (!_isPlayerAlive)
+	{
+		_updateLivesText("DEAD");
+		return;
+	}
+
 	glm::vec3 camPos = _camera.getPos();
 	glm::mat4 view = _camera.getView();
 	// Drawing scene objects
@@ -52,9 +62,13 @@ void World::draw()
 	_skybox.draw(_projection, view, camPos, camPos, _lightColor);
 	_asteroids.draw(_projection, view, camPos, _spaceship.getUp());
 
-	char* s = "LIVES: 10";	
-	glRasterPos2f(-0.9f, 0.9f);
-	print_bitmap_string(GLUT_BITMAP_9_BY_15, s);
+	// Updating life text
+	std::string lifeText = std::string("LIVES: ") + std::to_string(_spaceship.getLife());
+	_updateLivesText(lifeText.c_str());
+
+// 	char* s = "LIVES: 10";
+// 	glRasterPos2f(-0.9f, 0.9f);
+// 	print_bitmap_string(GLUT_BITMAP_9_BY_15, s);
 }
 
 void World::_updateCameraDependencies()
@@ -62,14 +76,32 @@ void World::_updateCameraDependencies()
 	_asteroids.setCamera(_camera.getPos());
 }
 
+void World::_updateLivesText(const char* text)
+{
+	char t[MAX_TEXT] = { '\0' };
+	strcpy_s(t, strlen(text) + 1, text);
+
+	glRasterPos2f(-0.9f, 0.9f);
+	print_bitmap_string(GLUT_BITMAP_9_BY_15, t);
+}
+
 void World::update(int deltaTime)
 {
-	_spaceship.update();
+	GLuint status = _spaceship.update();
+	if (status == SpaceShip::LIFE_OPT::DEAD)
+	{
+		_isPlayerAlive = false;
+	}
 	_camera.update();
 
 	_updateCameraDependencies();
+	GLuint collisions = _asteroids.handleCollisions(_spaceship.getBoundingSphere());
+	if (collisions > 0)
+	{
+		_spaceship.collide();
+	}
 
-	_asteroids.update(deltaTime);
+	_asteroids.update(deltaTime, _spaceship.getPosition());
 	_skybox.update();
 }
 

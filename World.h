@@ -60,12 +60,16 @@ private:
 	//Light properties
 	glm::vec4 _lightColor;
 
+	// World objects
 	SpaceShip _spaceship;
 	AsteroidsField _asteroids;
 	SkyBox _skybox;
+	bool _isPlayerAlive;
+
 	// View port frame:
 	float _width, _height, _offsetX, _offsetY;
 
 	void _updateCameraDependencies();
+	void _updateLivesText(const char* text);
 };
 

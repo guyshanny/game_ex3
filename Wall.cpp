@@ -141,9 +141,11 @@ void Wall::draw(const glm::mat4 & projection, const glm::mat4& view, const glm::
 	END_OPENGL;
 }
 
-void Wall::update()
+GLuint Wall::update()
 {
 	// Update commands
 	if (_commands[Commands::FLICKER_LIGHT]) { _flickerLight(true); }
 	if (_commands[Commands::UNDO_FLICKER_LIGHT]) { _flickerLight(false); }
+
+	return 0;
 }

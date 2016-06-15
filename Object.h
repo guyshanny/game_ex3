@@ -19,7 +19,7 @@ public:
 	virtual ~Object() {};
 
 	// Updates the object's params if needed (does in each render frame)
-	virtual void update() = 0;
+	virtual GLuint update() = 0;
 	virtual void draw(const glm::mat4& projection, const glm::mat4& view, const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor) = 0;
 
 	// Draws the object
@@ -28,8 +28,6 @@ public:
 		addShader(GL_VERTEX_SHADER, _vShaderFile);
 		addShader(GL_FRAGMENT_SHADER, _fShaderFile);
 		finalize();
-
-		calcBoundingSphere();
 	}
 
 	glm::mat4 getModel() { return _model; }
@@ -47,7 +45,7 @@ protected:
 	glm::mat4 _model;	
 
 	std::vector<glm::vec4> _vertices;
-	Sphere* _boundingSphere;
+	Sphere _boundingSphere;
 
 	void _useMVP(const glm::mat4& projection, const glm::mat4& view);
 	void setWorldUniforms(const glm::vec3 camPos, glm::vec3 lightPos, glm::vec4 lightColor);
