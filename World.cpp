@@ -12,7 +12,7 @@
 World::World() : _camera(&_spaceship, glm::vec3(0, 1.5, 3)), _lightColor(1, 1, 0.88, 1),
 				_spaceship(glm::vec3(0, 0, 0), glm::vec4(0, 0.1, 0.6, 1), 
 							"shaders\\phong_spaceship.vert", "shaders\\phong.frag", 
-							"textures\\marble.bmp", "meshes\\simple-spaceship.obj"),
+							"textures\\marble.bmp", "meshes\\bunny_1k.off"),
 	_asteroids({ "textures\\asteroids\\asteroid1.bmp", 
 				 "textures\\asteroids\\asteroid3.bmp", 
 				 "textures\\asteroids\\asteroid4.bmp",

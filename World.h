@@ -23,7 +23,8 @@ private:
 
 	glm::vec3 interp(glm::vec3 cur, glm::vec3 final, float dt) {
 		glm::vec3 velocity = final - cur;
-		velocity = glm::clamp(velocity, glm::vec3(-2.f), glm::vec3(2.f));
+		velocity *= 10;
+		velocity = glm::clamp(velocity, glm::vec3(-0.5f), glm::vec3(0.5f));
 		glm::vec3 delta = velocity * dt;
 		if (glm::length(delta) < glm::distance(final, cur)) {
 			return cur + (velocity * dt);
@@ -39,11 +40,11 @@ public:
 	void update(int deltaTime) {
 		float dt = deltaTime * 0.001f;
 		//update position
-		_pos = interp(_pos, glm::vec3(_player->getModel() * glm::vec4(_offset, 1)), dt);
-		_direction = interp(_direction, _player->getDirection(), dt);
+		_pos = glm::vec3(_player->getModel() * glm::vec4(_offset, 1));//interp(_pos, glm::vec3(_player->getModel() * glm::vec4(_offset, 1)), dt); // 
+		_direction = _player->getDirection();//interp(_direction, _player->getDirection(), dt);// 
 		//update view matrix
 		glm::vec3 target = _pos + _direction;
-		_up = interp(_up, _player->getUp(), dt);
+		//_up = interp(_up, _player->getUp(), dt);
 		_view = glm::lookAt(_pos, target, _player->getUp());
 	}
 
