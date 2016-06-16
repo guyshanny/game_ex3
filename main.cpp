@@ -2,12 +2,14 @@
 #include <GL/freeglut.h>
 #include <iostream>
 #include "World.h"
+#include "PPBuffer.h"
 //#include "InputManager.h"
 
 int const WINDOW_WIDTH = 512;
 int const WINDOW_HEIGHT = 512;
 
 World* _world;
+PPBuffer* _ppbuffer;
 //InputManager* _inputManager;
 
 void init();
@@ -40,11 +42,9 @@ int main(int argc, char **argv)
 
 	glutMainLoop();
 
-	if (NULL != _world)
-	{
-		delete _world;
-		_world = NULL;
-	}
+	if (NULL != _world) { delete _world; }
+	if (NULL != _ppbuffer) { delete _ppbuffer; }
+
 
 	return 0;
 }
@@ -61,16 +61,26 @@ void init(void)
 	_world = new World();
 	_world->init();
 
+	// Creating post-processing buffer
+	_ppbuffer = new PPBuffer();
+	_ppbuffer->init(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	_world->setPPBuffer(_ppbuffer);
+
+
 	// Creating input manager
 	//_inputManager = new InputManager(_world);
 }
 
 void display(void)
 {
+	_ppbuffer->setup();
+
 	//glClearColor(1.0, 0.4, 0.0, 0.0); //background color (default is black)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     // clear the window
 
 	_world->draw();
+	_ppbuffer->render();
 
 	// Swap those buffers so someone will actually see the results... //
 	glutSwapBuffers();
@@ -98,11 +108,15 @@ void keyboard(unsigned char key, int x, int y)
 		_world->moveForwardKeyPressed();
 		break;
 	case Controls::KEY_RESET:
+	{
 		_world->reset();
+		_ppbuffer->reset();
+	}
 		break;
 	case Controls::KEY_ESC:
 		exit(0);
 		break;
+
 	default:
 		//_inputManager.longTermKeyDown(lowerKey, x, y);
 		break;
@@ -124,6 +138,7 @@ void update()
 
 void resizeWindowHandler(int width, int height)
 {
+	_ppbuffer->resize(width, height);
 	_world->resize(width, height);
 	
 	// set the new viewport
