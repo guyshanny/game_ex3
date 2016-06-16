@@ -6,8 +6,8 @@
 #include "SpaceShip.h"
 #include "Sphere.h"
 
-#define MAX_ASTEROIDS 100
-#define MAX_SPEED 5.f
+#define MAX_ASTEROIDS 500
+#define MAX_SPEED 0.5f
 
  struct Asteroid
 {
@@ -23,13 +23,15 @@
 				const GLfloat& newSize,
 				const GLfloat& newRadius,
 				const glm::vec3& newPosition,
-				const glm::vec3& newSpeed)
+				const glm::vec3& newSpeed,
+				const GLuint& newType)
 	{
 		isAlive = newIsAlive;
 		size = newSize;
 		radius = newRadius;
 		position = newPosition;
 		speed = newSpeed;
+		type = newType;
 
 		_sphere = Sphere(position, radius);
 	}
@@ -39,7 +41,6 @@
 		return _sphere.isCollide(otherSphere);
 	}
 	
-//	GLuint _id;
  	glm::vec3 position, speed;
  	GLfloat size, radius, camDist;
 	bool isAlive;
@@ -75,8 +76,6 @@ private:
 	GLuint _vb;			// vertex buffer
 	Billboard _billboard;
 
-//	void _createRandomAsteroids(const GLuint& num, const bool& isInit);
-//	void _addAsteroid(const GLuint& id);
 	void _addAsteroid(const GLuint& id);
 	GLuint _findUnusedAsteroid();
 	GLfloat _rand(const GLfloat& min, const GLfloat& max);

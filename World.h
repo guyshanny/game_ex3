@@ -9,6 +9,8 @@
 #include "AsteroidsField.h"
 #include "SkyBox.h"
 #include "Sound.h"
+#include "PPBuffer.h"
+
 
 class Camera {
 private:
@@ -64,6 +66,8 @@ public:
 	void update(int deltaTime);
 	void resize(int width, int height);
 	void reset();
+	void setPPBuffer(PPBuffer* ppbuffer) { _ppbuffer = ppbuffer; }
+	
 
 	// Keyboard handling
 	void upKeyPressed();
@@ -87,6 +91,8 @@ private:
 	SkyBox _skybox;
 	bool _isPlayerAlive;
 	Sound& _sound;
+	PPBuffer* _ppbuffer;
+	GLuint _isCollide;
 
 	// View port frame:
 	float _width, _height, _offsetX, _offsetY;

@@ -7,11 +7,12 @@
 
 
 #define MAX_TEXT 40
+#define ACTIVE_SOUND
 
 World::World() : _camera(&_spaceship, glm::vec3(0, 1.5, 3)), _lightColor(1, 1, 0.88, 1),
 				_spaceship(glm::vec3(0, 0, 0), glm::vec4(0, 0.1, 0.6, 1), 
 							"shaders\\phong_spaceship.vert", "shaders\\phong.frag", 
-							"textures\\marble.bmp", "meshes\\bunny_1k.off"),
+							"textures\\marble.bmp", "meshes\\simple-spaceship.obj"),
 	_asteroids({ "textures\\asteroids\\asteroid1.bmp", 
 				 "textures\\asteroids\\asteroid3.bmp", 
 				 "textures\\asteroids\\asteroid4.bmp",
@@ -21,7 +22,8 @@ World::World() : _camera(&_spaceship, glm::vec3(0, 1.5, 3)), _lightColor(1, 1, 0
 				 "textures\\asteroids\\asteroid8.bmp",
 				 "textures\\asteroids\\asteroid9.bmp" }),
 	_isPlayerAlive(true),
-	_sound(Sound::instance())
+	_sound(Sound::instance()),
+	_isCollide(0)
 {
 	// Projection matrix : 45?Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
 	// params: fovy, aspect, zNear, zFar
@@ -30,6 +32,9 @@ World::World() : _camera(&_spaceship, glm::vec3(0, 1.5, 3)), _lightColor(1, 1, 0
 
 void World::init()
 {
+#ifdef ACTIVE_SOUND
+	_sound.playBackground();
+#endif
 	_spaceship.init();
 	_asteroids.init(_spaceship.getPosition(), 10.f, 50.f, 20);
 	_skybox.init();
@@ -88,6 +93,13 @@ void World::_updateLivesText(const char* text)
 
 void World::update(int deltaTime)
 {
+	if (_isCollide >= 20)
+	{
+		_ppbuffer->reset();
+		_isCollide = 0;
+	}
+	if (_isCollide > 0) { _isCollide += 1; }
+
 	GLuint status = _spaceship.update(deltaTime);
 	if (status == SpaceShip::LIFE_OPT::DEAD)
 	{
@@ -100,6 +112,11 @@ void World::update(int deltaTime)
 	if (collisions > 0)
 	{
 		_spaceship.collide();
+		_ppbuffer->wave();
+		_ppbuffer->setConvolutionMatrix(glm::mat3(1.f, 2.f, 1.f,
+			2.f, 4.f, 2.f,
+			1.f, 2.f, 1.f) / 16.f);
+		_isCollide = 1;
 	}
 
 	_asteroids.update(deltaTime, _spaceship.getPosition());

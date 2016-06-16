@@ -1,0 +1,43 @@
+me: guyshanny 203788716
+my partner: rotemge 305189623
+
+Controls were implemented:
+--------------------------
+WASD/Space tail-following camera control 								
+
+Known issues
+------------
+- We had some difficulties implementing inertia movements
+- Collisions aren't perfect (we've implemented the camera thrust to be 3 frames before the real ship.
+                             That's why sometimes there is an inconsistency in collisions.
+                             But, collisions are OK the moment we cancel the thrust. 
+                             We didn't cancel it because it makes the game more fun realistic)
+
+Optionals were implemented:
+---------------------------
+- Skybox
+- Better ship mesh - we used a simple ship's mesh
+                     (https://clara.io)
+                     we didn't use a more sophisticated mesh because it makes the game
+                     heavier, and it takes time to be loaded
+- Better collision detection - Bounding Boxes
+- Better camera control - Thrust & Inertia (camera) - not perfect, but it's something :)
+                          (We will have it better in the next version. It is BETA version now ;)
+- Explosions (Post-processing) - Shaking
+                                 Blurring
+- Better Asteroids - random types of asteroids
+                   - Animated textures (if we understood it right - animated asteroids)
+- Sound and music - background music 
+
+Running
+-------
+Pay attention - there are some static configuration in our solution (ex3.vcxproj) such as:
+	- OpenMesh directories & libs
+So, change it to your configuration before compiling.
+
+Tallying
+--------
+= It was a very hard task, but it was really fun and interesting! =
+
+
+Have a nice day :)

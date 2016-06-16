@@ -21,5 +21,6 @@ namespace Controls
 		KEY_LEFT = ('a'),
 		KEY_RIGHT = ('d'),
 		KEY_MOVE_FORWARD = (' '),
+		KEY_TEST = ('t')
 	};
 }
