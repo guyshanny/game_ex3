@@ -21,7 +21,7 @@ private:
 
 	glm::vec3 interp(glm::vec3 cur, glm::vec3 final, float dt) {
 		glm::vec3 velocity = final - cur;
-		glm::clamp(velocity, glm::vec3(-0.9), glm::vec3(0.9));
+		velocity = glm::clamp(velocity, glm::vec3(-2.f), glm::vec3(2.f));
 		glm::vec3 delta = velocity * dt;
 		if (glm::length(delta) < glm::distance(final, cur)) {
 			return cur + (velocity * dt);
